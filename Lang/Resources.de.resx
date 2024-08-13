@@ -1,0 +1,29 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="IntroText" xml:space="preserve">
+        <value>MoSpeedUI - Eine Benutzeroberfläche für den MoSpeed Kompilierer/Interpreter</value>
+    </data>
+    <data name="DragBox" xml:space="preserve">
+        <value>Datei(en) hierhin ziehen oder klicken, um Datei(en) auszuwählen</value>
+    </data>
+    <data name="Step1" xml:space="preserve">
+        <value>1. Datei(en) auswählen</value>
+    </data>
+    <data name="DragEnter" xml:space="preserve">
+        <value>Datei(en) loslassen</value>
+    </data>
+    <data name="DragInvalid" xml:space="preserve">
+        <value>Kein(e) valide(n) Datei(en)</value>
+    </data>
+</root>
