@@ -5,5 +5,5 @@ namespace MoSpeedUI;
 
 public class CompileConfig
 {
-    public List<IStorageFile>? Files { get; set; }
+    public List<IStorageFile> Files { get; set; } = new();
 }

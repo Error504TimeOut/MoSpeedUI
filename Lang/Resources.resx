@@ -34,6 +34,15 @@
         <value>File(s) not valid</value>
     </data>
     <data name="FilePickerTitle" xml:space="preserve">
+        <value>Select file(s)</value>
+    </data>
+    <data name="FilePickerDef" xml:space="preserve">
+        <value>BASIC Files</value>
+    </data>
+    <data name="FileList" xml:space="preserve">
         <value />
+    </data>
+    <data name="FileListDesc" xml:space="preserve">
+        <value>Selected file(s) (right-click to remove):</value>
     </data>
 </root>

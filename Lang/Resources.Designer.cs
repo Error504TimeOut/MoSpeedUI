@@ -80,5 +80,23 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("FilePickerTitle", resourceCulture);
             }
         }
+        
+        public static string FilePickerDef {
+            get {
+                return ResourceManager.GetString("FilePickerDef", resourceCulture);
+            }
+        }
+        
+        public static string FileList {
+            get {
+                return ResourceManager.GetString("FileList", resourceCulture);
+            }
+        }
+        
+        public static string FileListDesc {
+            get {
+                return ResourceManager.GetString("FileListDesc", resourceCulture);
+            }
+        }
     }
 }

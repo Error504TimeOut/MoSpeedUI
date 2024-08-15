@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -8,6 +10,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 
@@ -15,19 +18,24 @@ namespace MoSpeedUI;
 
 public partial class MainWindow : Window
 {
-    public static FilePickerFileType Basic { get; } = new("BASIC Files")
+    public static FilePickerFileType Basic { get; } = new(Lang.Resources.FilePickerDef)
     {
         Patterns = new[] { "*.bas"},
         AppleUniformTypeIdentifiers = new[] { "public.text" },
         MimeTypes = new[] { "text/*" }
     };
-    private CompileConfig CompileConfig = new CompileConfig();
+    private CompileConfig CompileConfig = new();
     public MainWindow()
     {
         InitializeComponent();
         MoSpeedLogo.MaxWidth = (int)(this.ClientSize.Width / 3);
         //ParentPanel.MaxWidth = (int)(this.ClientSize.Width / 2);
-        ControlPanel.MinWidth = (int)(this.ClientSize.Width * 0.75);
+        ControlPanel.MaxWidth = (int)(this.ClientSize.Width * 0.75);
+        ControlPanel.Width = (int)(this.ClientSize.Width * 0.75);
+        this.Resized += (_, e) =>
+        {
+            ControlPanel.Width = (int)(e.ClientSize.Width * 0.75);
+        };
         DragBox.Cursor = new Cursor(StandardCursorType.Hand);
         DragDrop.SetAllowDrop(this, true);
         DragDrop.SetAllowDrop(DragBox,true);
@@ -40,16 +48,55 @@ public partial class MainWindow : Window
             {
                 Title = Lang.Resources.FilePickerTitle,
                 AllowMultiple = true,
-                FileTypeFilter = new[] {Basic, FilePickerFileTypes.TextPlain}
+                FileTypeFilter = new[] {Basic, FilePickerFileTypes.TextPlain, FilePickerFileTypes.All }
                 
             });
             if (files.Count >= 1)
             {
-                CompileConfig.Files = files.ToList();
+                CompileConfig.Files.AddRange(files.ToList());
+                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                RefreshFileList();
+            }
+            else
+            {
+                return;
+            }
+            foreach (var file in CompileConfig.Files)
+            {
+                Console.WriteLine(file.Path);
             }
         };
     }
-    
+
+    private void RefreshFileList()
+    {
+        FileListPanel.Children.Clear();
+        foreach (var file in CompileConfig.Files)
+        {
+            var textBlock = new TextBlock()
+                { Text = String.Format("• {0}", file.Name)};
+            var border = new Border()
+            {
+                Background = Brushes.Gainsboro, BorderBrush = Brushes.Black, Padding = new Thickness(10),
+                BorderThickness = new Thickness(2), CornerRadius = new CornerRadius(10d), Margin = new Thickness(4d),
+                Cursor = new Cursor(StandardCursorType.Hand)
+            };
+            border.Child = textBlock;
+            border.PointerPressed += (s, e) =>
+            {
+                if (e.GetCurrentPoint(s as Control).Properties.IsRightButtonPressed)
+                {
+                    var txtBlock = s as Border;
+                    if (txtBlock != null)
+                    {
+                        CompileConfig.Files.RemoveAt(FileListPanel.Children.IndexOf(txtBlock));
+                        RefreshFileList();
+                    }
+                }
+            };
+            FileListPanel.Children.Add(border);
+        }
+    }
     private void DragEnterHandler(object? sender, DragEventArgs e)
     {
         Console.WriteLine("DragEnter");
