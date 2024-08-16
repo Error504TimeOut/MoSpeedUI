@@ -47,4 +47,34 @@
     <data name="C64Specific" xml:space="preserve">
         <value>Versteckten Arbeitsspeicher verwenden (langsamer!)</value>
     </data>
+    <data name="EightKExpansion" xml:space="preserve">
+        <value>8K+ Erweiterung</value>
+    </data>
+    <data name="NoExpansion" xml:space="preserve">
+        <value>Keine Erweiterung</value>
+    </data>
+    <data name="ThreeKExpansion" xml:space="preserve">
+        <value>3K Erweiterung</value>
+    </data>
+    <data name="MemoryConfig" xml:space="preserve">
+        <value>Speicherkonfiguration auswählen:</value>
+    </data>
+    <data name="X16PlatformConfig" xml:space="preserve">
+        <value>Für den X16 gibt es keine verfügbaren Einstellungen.</value>
+    </data>
+    <data name="ProgramStart" xml:space="preserve">
+        <value>Programmstartadresse:</value>
+    </data>
+    <data name="RuntimeStart" xml:space="preserve">
+        <value>Runtimestartadresse:</value>
+    </data>
+    <data name="StringMemEnd" xml:space="preserve">
+        <value>Zeichenkettenspeicherendadresse:</value>
+    </data>
+    <data name="VarsStart" xml:space="preserve">
+        <value>Variablenstartadresse:</value>
+    </data>
+    <data name="DecimalOrHexWDefault" xml:space="preserve">
+        <value>Adresse eingeben (Dezimal/Hex, leer für Standard)</value>
+    </data>
 </root>

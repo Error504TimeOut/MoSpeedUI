@@ -54,4 +54,34 @@
     <data name="C64Specific" xml:space="preserve">
         <value>Use hidden RAM (slower!)</value>
     </data>
+    <data name="NoExpansion" xml:space="preserve">
+        <value>No expansion</value>
+    </data>
+    <data name="ThreeKExpansion" xml:space="preserve">
+        <value>3K expansion</value>
+    </data>
+    <data name="EightKExpansion" xml:space="preserve">
+        <value>8K+ expansion</value>
+    </data>
+    <data name="MemoryConfig" xml:space="preserve">
+        <value>Select memory configuration:</value>
+    </data>
+    <data name="X16PlatformConfig" xml:space="preserve">
+        <value>The X16 does not support any platform specific configuration.</value>
+    </data>
+    <data name="ProgramStart" xml:space="preserve">
+        <value>Program start address:</value>
+    </data>
+    <data name="VarsStart" xml:space="preserve">
+        <value>Variables start address:</value>
+    </data>
+    <data name="StringMemEnd" xml:space="preserve">
+        <value>Strings memory end address:</value>
+    </data>
+    <data name="RuntimeStart" xml:space="preserve">
+        <value>Runtime start address:</value>
+    </data>
+    <data name="DecimalOrHexWDefault" xml:space="preserve">
+        <value>Enter address (decimal/hex, empty for default)</value>
+    </data>
 </root>

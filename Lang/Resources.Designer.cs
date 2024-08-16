@@ -116,5 +116,65 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("C64Specific", resourceCulture);
             }
         }
+        
+        public static string NoExpansion {
+            get {
+                return ResourceManager.GetString("NoExpansion", resourceCulture);
+            }
+        }
+        
+        public static string ThreeKExpansion {
+            get {
+                return ResourceManager.GetString("ThreeKExpansion", resourceCulture);
+            }
+        }
+        
+        public static string EightKExpansion {
+            get {
+                return ResourceManager.GetString("EightKExpansion", resourceCulture);
+            }
+        }
+        
+        public static string MemoryConfig {
+            get {
+                return ResourceManager.GetString("MemoryConfig", resourceCulture);
+            }
+        }
+        
+        public static string X16PlatformConfig {
+            get {
+                return ResourceManager.GetString("X16PlatformConfig", resourceCulture);
+            }
+        }
+        
+        public static string ProgramStart {
+            get {
+                return ResourceManager.GetString("ProgramStart", resourceCulture);
+            }
+        }
+        
+        public static string VarsStart {
+            get {
+                return ResourceManager.GetString("VarsStart", resourceCulture);
+            }
+        }
+        
+        public static string StringMemEnd {
+            get {
+                return ResourceManager.GetString("StringMemEnd", resourceCulture);
+            }
+        }
+        
+        public static string RuntimeStart {
+            get {
+                return ResourceManager.GetString("RuntimeStart", resourceCulture);
+            }
+        }
+        
+        public static string DecimalOrHexWDefault {
+            get {
+                return ResourceManager.GetString("DecimalOrHexWDefault", resourceCulture);
+            }
+        }
     }
 }

@@ -11,7 +11,9 @@
         <StackPanel HorizontalAlignment="Center" x:Name="ParentPanel">
             <Image HorizontalAlignment="Center" Source="avares://MoSpeedUI/Assets/Images/mospeed.png" x:Name="MoSpeedLogo"></Image>
             <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Medium" TextAlignment="Center" TextWrapping="WrapWithOverflow" Text="{x:Static lang:Resources.IntroText}" />
+            
                 <StackPanel HorizontalAlignment="Center" x:Name="ControlPanel" Margin="0,20,0,0">
+                    <!--Step 1 Start!-->
                     <StackPanel x:Name="Step1">
                         <TextBlock FontWeight="Bold" FontSize="26" Text="{x:Static lang:Resources.Step1}"/>
                         <Border Background="Gainsboro"
@@ -24,8 +26,11 @@
                         <TextBlock Text="{x:Static lang:Resources.FileListDesc}"/>
                         <StackPanel x:Name="FileListPanel"></StackPanel>
                     </StackPanel>
+                    <!--Step 1 END!-->
+                    <!--Step 2 Start!-->
                     <StackPanel x:Name="Step2" Margin="0,10,0,10">
                         <TextBlock FontWeight="Bold" FontSize="26" Text="{x:Static lang:Resources.Step2}"/>
+                        
                         <WrapPanel>
                             <StackPanel>
                                 <TextBlock Text="{x:Static lang:Resources.TargetPlatform}" Margin="0,0,0,4"/>
@@ -35,20 +40,41 @@
                                     <ComboBoxItem>Commander X16 (r38)</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
+                            
                             <StackPanel Margin="8,0,0,0" x:Name="PlatformConf">
                                 <TextBlock Text="{x:Static lang:Resources.PlatformSpecific}" Margin="0,0,0,4"/>
                                 <Panel x:Name="C64Conf">
                                    <CheckBox Content="{x:Static lang:Resources.C64Specific}"/>
                                 </Panel>
+                                
                                 <Panel x:Name="Vc20Conf">
-                                    <TextBlock>Vc</TextBlock>
+                                    <StackPanel>
+                                        <TextBlock Text="{x:Static lang:Resources.MemoryConfig}" Margin="0,0,0,4"/>
+                                        <ComboBox SelectedIndex="1" x:Name="Vc20ConfBox">
+                                            <ComboBoxItem Content="{x:Static lang:Resources.NoExpansion}"/>
+                                            <ComboBoxItem Content="{x:Static lang:Resources.ThreeKExpansion}"/>
+                                            <ComboBoxItem Content="{x:Static lang:Resources.EightKExpansion}"/>
+                                        </ComboBox>
+                                    </StackPanel>
                                 </Panel>
+                                
                                 <Panel x:Name="X16Conf">
-                                    <TextBlock>X16</TextBlock>
+                                    <TextBlock Text="{x:Static lang:Resources.X16PlatformConfig}"/>
                                 </Panel>
                             </StackPanel>
                         </WrapPanel>
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto" ShowGridLines="False">
+                            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.ProgramStart}" Target="ProgramStartAdd"/>
+                            <TextBox Margin="4" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="ProgramStartAdd" Watermark="{x:Static lang:Resources.DecimalOrHexWDefault}"/>
+                            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.VarsStart}" Target="VarsStartAdd"/>
+                            <TextBox Margin="4" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="VarsStartAdd" Watermark="{x:Static lang:Resources.DecimalOrHexWDefault}"/>
+                            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.StringMemEnd}" Target="StringMemEndAdd"/>
+                            <TextBox Margin="4" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" x:Name="StringMemEndAdd" Watermark="{x:Static lang:Resources.DecimalOrHexWDefault}"/>
+                            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.RuntimeStart}" Target="RuntimeStartAdd"/>
+                            <TextBox Margin="4" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" x:Name="RuntimeStartAdd" Watermark="{x:Static lang:Resources.DecimalOrHexWDefault}"/>
+                        </Grid>
                     </StackPanel>
+                    <!--Step 2 END!-->
                 </StackPanel>
         </StackPanel>
     </Panel>
