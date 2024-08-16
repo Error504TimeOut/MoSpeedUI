@@ -28,13 +28,17 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        MoSpeedLogo.MaxWidth = (int)(this.ClientSize.Width / 3);
+        this.Width = 800;
+        this.Height = 600;
+        MoSpeedLogo.MaxWidth = (int)(this.Width / 3);
         //ParentPanel.MaxWidth = (int)(this.ClientSize.Width / 2);
         ControlPanel.MaxWidth = (int)(this.ClientSize.Width * 0.75);
         ControlPanel.Width = (int)(this.ClientSize.Width * 0.75);
         this.Resized += (_, e) =>
         {
-            ControlPanel.Width = (int)(e.ClientSize.Width * 0.75);
+            MoSpeedLogo.MaxWidth = (int)(this.Width / 3);
+            ControlPanel.MaxWidth = (int)(e.ClientSize.Width * 0.75);
+            ControlPanel.Width = ControlPanel.MaxWidth;
         };
         DragBox.Cursor = new Cursor(StandardCursorType.Hand);
         DragDrop.SetAllowDrop(this, true);
