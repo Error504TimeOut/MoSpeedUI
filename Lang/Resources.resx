@@ -37,12 +37,21 @@
         <value>Select file(s)</value>
     </data>
     <data name="FilePickerDef" xml:space="preserve">
-        <value>BASIC Files</value>
-    </data>
-    <data name="FileList" xml:space="preserve">
-        <value />
+        <value>BASIC/PRG Files</value>
     </data>
     <data name="FileListDesc" xml:space="preserve">
         <value>Selected file(s) (right-click to remove):</value>
+    </data>
+    <data name="Step2" xml:space="preserve">
+        <value>Step 2: Platform Configuration</value>
+    </data>
+    <data name="TargetPlatform" xml:space="preserve">
+        <value>Target Platform:</value>
+    </data>
+    <data name="PlatformSpecific" xml:space="preserve">
+        <value>Platform specific configuration:</value>
+    </data>
+    <data name="C64Specific" xml:space="preserve">
+        <value>Use hidden RAM (slower!)</value>
     </data>
 </root>

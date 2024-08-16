@@ -30,9 +30,21 @@
         <value>Datei(en) auswählen</value>
     </data>
     <data name="FilePickerDef" xml:space="preserve">
-        <value>BASIC Dateien</value>
+        <value>BASIC/PRG Dateien</value>
     </data>
     <data name="FileListDesc" xml:space="preserve">
         <value>Ausgewählte Datei(en) (Rechtsklick zum entfernen):</value>
+    </data>
+    <data name="Step2" xml:space="preserve">
+        <value>2. Plattform Konfiguration</value>
+    </data>
+    <data name="TargetPlatform" xml:space="preserve">
+        <value>Zielplattform:</value>
+    </data>
+    <data name="PlatformSpecific" xml:space="preserve">
+        <value>Plattformspezifische Konfiguration:</value>
+    </data>
+    <data name="C64Specific" xml:space="preserve">
+        <value>Versteckten Arbeitsspeicher verwenden (langsamer!)</value>
     </data>
 </root>

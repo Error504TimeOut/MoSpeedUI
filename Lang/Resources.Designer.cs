@@ -87,15 +87,33 @@ namespace MoSpeedUI.Lang {
             }
         }
         
-        public static string FileList {
-            get {
-                return ResourceManager.GetString("FileList", resourceCulture);
-            }
-        }
-        
         public static string FileListDesc {
             get {
                 return ResourceManager.GetString("FileListDesc", resourceCulture);
+            }
+        }
+        
+        public static string Step2 {
+            get {
+                return ResourceManager.GetString("Step2", resourceCulture);
+            }
+        }
+        
+        public static string TargetPlatform {
+            get {
+                return ResourceManager.GetString("TargetPlatform", resourceCulture);
+            }
+        }
+        
+        public static string PlatformSpecific {
+            get {
+                return ResourceManager.GetString("PlatformSpecific", resourceCulture);
+            }
+        }
+        
+        public static string C64Specific {
+            get {
+                return ResourceManager.GetString("C64Specific", resourceCulture);
             }
         }
     }

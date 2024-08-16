@@ -20,7 +20,7 @@ public partial class MainWindow : Window
 {
     public static FilePickerFileType Basic { get; } = new(Lang.Resources.FilePickerDef)
     {
-        Patterns = new[] { "*.bas"},
+        Patterns = new[] { "*.bas", "*.prg"},
         AppleUniformTypeIdentifiers = new[] { "public.text" },
         MimeTypes = new[] { "text/*" }
     };
@@ -66,6 +66,17 @@ public partial class MainWindow : Window
                 Console.WriteLine(file.Path);
             }
         };
+        PlatformSelect.SelectionChanged += (s, _) =>
+        {
+            var panels = PlatformConf.Children.Where(x => x.GetType() == typeof(Panel)).ToList();
+            foreach (var panel in panels)
+            {
+                panel.IsVisible = false;
+            }
+
+            panels[PlatformSelect.SelectedIndex].IsVisible = true;
+        };
+        PlatformSelect.SelectedIndex = 0;
     }
 
     private void RefreshFileList()
@@ -99,7 +110,7 @@ public partial class MainWindow : Window
     }
     private void DragEnterHandler(object? sender, DragEventArgs e)
     {
-        Console.WriteLine("DragEnter");
+        //Console.WriteLine("DragEnter");
         if (e.Data.Contains(DataFormats.Files))
         {
             DragBox.Background = Brushes.Lime;
@@ -115,17 +126,26 @@ public partial class MainWindow : Window
     }
     private void DragExitHandler(object? sender, DragEventArgs e)
     {   
-        Console.WriteLine("DragExit");
+        //Console.WriteLine("DragExit");
         DragBox.Background = Brushes.Gainsboro;
         DragBox.BorderBrush = Brushes.Black;
         DragText.Text = Lang.Resources.DragBox;
     }
     private void DropHandler(object? sender, DragEventArgs e)
     {
-        Console.WriteLine("Drop");
+        //Console.WriteLine("Drop");
         DragBox.Background = Brushes.Gainsboro;
         DragBox.BorderBrush = Brushes.Black;
         DragText.Text = Lang.Resources.DragBox;
-        Environment.Exit(0);
+        var files = e.Data.GetFiles();
+        foreach (var file in files)
+        {
+            if (file is IStorageFile item)
+            {
+                CompileConfig.Files.Add(item);
+                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                RefreshFileList();
+            }
+        }
     }
 }
