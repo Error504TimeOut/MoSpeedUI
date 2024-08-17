@@ -12,7 +12,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="IntroText" xml:space="preserve">
-        <value>MoSpeedUI - Eine Benutzeroberfläche für den MoSpeed Kompilierer/Interpreter</value>
+        <value>MoSpeedUI - Eine Benutzeroberfläche für den MoSpeed-Kompiler</value>
     </data>
     <data name="DragBox" xml:space="preserve">
         <value>Datei(en) hierhin ziehen oder klicken, um Datei(en) auszuwählen</value>
@@ -36,7 +36,7 @@
         <value>Ausgewählte Datei(en) (Rechtsklick zum entfernen):</value>
     </data>
     <data name="Step2" xml:space="preserve">
-        <value>2. Plattform Konfiguration</value>
+        <value>2. Plattformkonfiguration</value>
     </data>
     <data name="TargetPlatform" xml:space="preserve">
         <value>Zielplattform:</value>
@@ -59,8 +59,8 @@
     <data name="MemoryConfig" xml:space="preserve">
         <value>Speicherkonfiguration auswählen:</value>
     </data>
-    <data name="X16PlatformConfig" xml:space="preserve">
-        <value>Für den X16 gibt es keine verfügbaren Einstellungen.</value>
+    <data name="JSPlatformConfig" xml:space="preserve">
+        <value>Für JavaScript gibt es keine verfügbaren Einstellungen.</value>
     </data>
     <data name="ProgramStart" xml:space="preserve">
         <value>Programmstartadresse:</value>
@@ -75,10 +75,10 @@
         <value>Variablenstartadresse:</value>
     </data>
     <data name="DecimalOrHexWDefault" xml:space="preserve">
-        <value>Adresse eingeben (Dezimal/Hex, leer für Standard)</value>
+        <value>Adresse eingeben (Dezimal/$Hex, leer für Standard)</value>
     </data>
     <data name="Step3" xml:space="preserve">
-        <value>3. Kompilierer Optionen</value>
+        <value>3. Kompileroptionen</value>
     </data>
     <data name="MemHoles" xml:space="preserve">
         <value>Speicherlöcher / gesperrte Bereiche:</value>
@@ -112,5 +112,41 @@
     </data>
     <data name="StartAdd" xml:space="preserve">
         <value>Startadresse</value>
+    </data>
+    <data name="PSPlatformConfig" xml:space="preserve">
+        <value>Für Powershell gibt es keine verfügbaren Einstellungen.</value>
+    </data>
+    <data name="PyPlatformConfig" xml:space="preserve">
+        <value>Für Python gibt es keine verfügbaren Einstellungen.</value>
+    </data>
+    <data name="DecimalOrHex" xml:space="preserve">
+        <value>Adresse eingeben (Dezimal/$Hex)</value>
+    </data>
+    <data name="SrcCdeNone" xml:space="preserve">
+        <value>Keine</value>
+    </data>
+    <data name="SrcCdeLower" xml:space="preserve">
+        <value>In Kleinbuchstaben umwandeln</value>
+    </data>
+    <data name="SrcCdeFlip" xml:space="preserve">
+        <value>Groß-/Kleinschreibung umdrehen</value>
+    </data>
+    <data name="LoopHandlingRemove" xml:space="preserve">
+        <value>Leere Schleifen entfernen</value>
+    </data>
+    <data name="LoopHandlingRetain" xml:space="preserve">
+        <value>Leere Scheilfen erhalten</value>
+    </data>
+    <data name="To" xml:space="preserve">
+        <value>bis</value>
+    </data>
+    <data name="AddMemHole" xml:space="preserve">
+        <value>Speicherloch hinzufügen</value>
+    </data>
+    <data name="Compile" xml:space="preserve">
+        <value>Kompilieren!</value>
+    </data>
+    <data name="Advanced" xml:space="preserve">
+        <value>Erweiterte Einstellungen</value>
     </data>
 </root>

@@ -10,6 +10,7 @@ using Avalonia.Controls.Templates;
 using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
@@ -83,6 +84,7 @@ public partial class MainWindow : Window
             panels[PlatformSelect.SelectedIndex].IsVisible = true;
         };
         PlatformSelect.SelectedIndex = 0;
+        //MemHoleGrid.RowDefinitions = new RowDefinitions("*,*");
     }
 
     private void RefreshFileList()
@@ -153,5 +155,21 @@ public partial class MainWindow : Window
                 RefreshFileList();
             }
         }
+    }
+
+    private void MemHoleBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        MemHoleGrid.RowDefinitions.Add(new RowDefinition(){Height = GridLength.Star});
+        Console.WriteLine(MemHoleGrid.RowDefinitions.Count-1);
+        var startBox = (new TextBox(){Name = "MemHoleStart"+(MemHoleGrid.RowDefinitions.Count-1), Watermark = Lang.Resources.DecimalOrHex, Margin = new Thickness(0,4,0,0)});
+        var endBox = (new TextBox(){Name = "MemHoleStart"+(MemHoleGrid.RowDefinitions.Count-1), Watermark = Lang.Resources.DecimalOrHex, Margin = new Thickness(0,4,0,0)});
+        var textBox = (new TextBlock() { Text = Lang.Resources.To, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(4,4,4,0)});
+        Grid.SetRow(startBox, MemHoleGrid.RowDefinitions.Count - 1);
+        Grid.SetRow(endBox, MemHoleGrid.RowDefinitions.Count - 1);
+        Grid.SetRow(textBox, MemHoleGrid.RowDefinitions.Count - 1);
+        Grid.SetColumn(startBox, 0);
+        Grid.SetColumn(textBox, 1);
+        Grid.SetColumn(endBox, 2);
+        MemHoleGrid.Children.AddRange(new List<Control> { startBox,endBox,textBox });
     }
 }

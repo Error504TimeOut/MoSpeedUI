@@ -38,7 +38,9 @@
                             <ComboBox Margin="4,0,0,0" Grid.Row="1" Grid.Column="0" SelectedIndex="-1" x:Name="PlatformSelect">
                                 <ComboBoxItem>C64</ComboBoxItem>
                                 <ComboBoxItem>VIC 20/VC 20</ComboBoxItem>
-                                <ComboBoxItem>Commander X16 (r38)</ComboBoxItem>
+                                <ComboBoxItem>JavaScript</ComboBoxItem>
+                                <ComboBoxItem>Powershell</ComboBoxItem>
+                                <ComboBoxItem>Python</ComboBoxItem>
                             </ComboBox>
                             
                             <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" ColumnDefinitions="*" RowDefinitions="Auto, *, *" Margin="8,0,0,0" x:Name="PlatformConf">
@@ -58,8 +60,14 @@
                                     </StackPanel>
                                 </Panel>
                                 
-                                <Panel Grid.Row="1" x:Name="X16Conf">
-                                    <TextBlock Text="{x:Static lang:Resources.X16PlatformConfig}"/>
+                                <Panel Grid.Row="1" x:Name="JSConf">
+                                    <TextBlock Text="{x:Static lang:Resources.JSPlatformConfig}"/>
+                                </Panel>
+                                <Panel Grid.Row="1" x:Name="PSConf">
+                                    <TextBlock Text="{x:Static lang:Resources.PSPlatformConfig}"/>
+                                </Panel>
+                                <Panel Grid.Row="1" x:Name="PyConf">
+                                    <TextBlock Text="{x:Static lang:Resources.PyPlatformConfig}"/>
                                 </Panel>
                             </Grid>
                         </Grid>
@@ -78,7 +86,7 @@
                     <!--Step 3 Start-->
                     <StackPanel x:Name="Step3">
                         <TextBlock FontWeight="Bold" FontSize="26" Text="{x:Static lang:Resources.Step3}"/>
-                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ShowGridLines="False">
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" ShowGridLines="False">
                             <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.CompressLvl}" Target="CompressLvl"/>
                             <ComboBox SelectedIndex="0" Margin="4" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="CompressLvl">
                                 <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl0}"/>
@@ -87,22 +95,31 @@
                                 <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl3}"/>
                             </ComboBox>
                             <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.SrcCdePrsc}" Target="SrcCdePrsc"/>
-                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="SrcCdePrsc">
-                                <ComboBoxItem></ComboBoxItem>
-                                <ComboBoxItem></ComboBoxItem>
-                                <ComboBoxItem></ComboBoxItem>
+                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="SrcCdePrsc" SelectedIndex="0">
+                                <ComboBoxItem Content="{x:Static lang:Resources.SrcCdeNone}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.SrcCdeLower}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.SrcCdeFlip}"/>
                             </ComboBox>
                             <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.LoopHandling}" Target="LoopHandling"/>
-                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" x:Name="LoopHandling">
-                                
+                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" x:Name="LoopHandling" SelectedIndex="0">
+                                <ComboBoxItem Content="{x:Static lang:Resources.LoopHandlingRemove}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.LoopHandlingRetain}"/>
                             </ComboBox>
                             <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,6,0" Content="Linker:"/>
                             <CheckBox Margin="4" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" x:Name="LinkerOpt" Content="{x:Static lang:Resources.LinkerOptBox}"/>
                             <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static lang:Resources.MemHoles}"/>
-                            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.ColumnDefinitions="*, Auto, *" RowDefinitions="*">
-                                <TextBlock></TextBlock>
+                            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MemHoleGrid" RowDefinitions="*" ColumnDefinitions="*, Auto, *">
+                                <TextBox x:Name="MemHoleStart0" Grid.Row="0" Grid.Column="0" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,0,4,0" Text="{x:Static lang:Resources.To}" />
+                                <TextBox x:Name="MemHoleEnd0" Grid.Row="0" Grid.Column="2" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
                             </Grid>
+                            <Button Grid.Row="6" Grid.Column="1" Margin="0,4,0,0" HorizontalAlignment="Right" Content="{x:Static lang:Resources.AddMemHole}" Click="MemHoleBtn_OnClick"/>
                         </Grid>
+                    </StackPanel>
+                    <!--Step 3 END!-->
+                    <StackPanel x:Name="Step4" Margin="0,16,0,0">
+                        <Button Margin="0,0,0,4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Compile}"/>
+                        <Button Margin="0,0,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Advanced}"/>
                     </StackPanel>
                 </StackPanel>
         </StackPanel>

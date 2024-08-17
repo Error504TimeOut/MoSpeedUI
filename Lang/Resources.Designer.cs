@@ -141,9 +141,9 @@ namespace MoSpeedUI.Lang {
             }
         }
         
-        public static string X16PlatformConfig {
+        public static string JSPlatformConfig {
             get {
-                return ResourceManager.GetString("X16PlatformConfig", resourceCulture);
+                return ResourceManager.GetString("JSPlatformConfig", resourceCulture);
             }
         }
         
@@ -246,6 +246,78 @@ namespace MoSpeedUI.Lang {
         public static string EndAdd {
             get {
                 return ResourceManager.GetString("EndAdd", resourceCulture);
+            }
+        }
+        
+        public static string PSPlatformConfig {
+            get {
+                return ResourceManager.GetString("PSPlatformConfig", resourceCulture);
+            }
+        }
+        
+        public static string PyPlatformConfig {
+            get {
+                return ResourceManager.GetString("PyPlatformConfig", resourceCulture);
+            }
+        }
+        
+        public static string DecimalOrHex {
+            get {
+                return ResourceManager.GetString("DecimalOrHex", resourceCulture);
+            }
+        }
+        
+        public static string SrcCdeNone {
+            get {
+                return ResourceManager.GetString("SrcCdeNone", resourceCulture);
+            }
+        }
+        
+        public static string SrcCdeLower {
+            get {
+                return ResourceManager.GetString("SrcCdeLower", resourceCulture);
+            }
+        }
+        
+        public static string SrcCdeFlip {
+            get {
+                return ResourceManager.GetString("SrcCdeFlip", resourceCulture);
+            }
+        }
+        
+        public static string LoopHandlingRemove {
+            get {
+                return ResourceManager.GetString("LoopHandlingRemove", resourceCulture);
+            }
+        }
+        
+        public static string LoopHandlingRetain {
+            get {
+                return ResourceManager.GetString("LoopHandlingRetain", resourceCulture);
+            }
+        }
+        
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        public static string AddMemHole {
+            get {
+                return ResourceManager.GetString("AddMemHole", resourceCulture);
+            }
+        }
+        
+        public static string Compile {
+            get {
+                return ResourceManager.GetString("Compile", resourceCulture);
+            }
+        }
+        
+        public static string Advanced {
+            get {
+                return ResourceManager.GetString("Advanced", resourceCulture);
             }
         }
     }

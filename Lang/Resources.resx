@@ -19,7 +19,7 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="IntroText" xml:space="preserve">
-        <value>MoSpeedUI - A GUI for the MoSpeed Compiler/Interpreter</value>
+        <value>MoSpeedUI - A GUI for the MoSpeed Compiler</value>
     </data>
     <data name="DragBox" xml:space="preserve">
         <value>Drag and Drop your file(s) here or click inside this Box to select them</value>
@@ -66,8 +66,8 @@
     <data name="MemoryConfig" xml:space="preserve">
         <value>Select memory configuration:</value>
     </data>
-    <data name="X16PlatformConfig" xml:space="preserve">
-        <value>The X16 does not support any platform specific configuration.</value>
+    <data name="JSPlatformConfig" xml:space="preserve">
+        <value>JavaScript does not support any platform specific configuration.</value>
     </data>
     <data name="ProgramStart" xml:space="preserve">
         <value>Program start address:</value>
@@ -82,7 +82,7 @@
         <value>Runtime start address:</value>
     </data>
     <data name="DecimalOrHexWDefault" xml:space="preserve">
-        <value>Enter address (decimal/hex, empty for default)</value>
+        <value>Enter address (decimal/$hex, empty for default)</value>
     </data>
     <data name="Step3" xml:space="preserve">
         <value>Step 3: Compiler Configuration</value>
@@ -119,5 +119,41 @@
     </data>
     <data name="EndAdd" xml:space="preserve">
         <value>End address</value>
+    </data>
+    <data name="PSPlatformConfig" xml:space="preserve">
+        <value>Powershell does not support any platform specific configuration.</value>
+    </data>
+    <data name="PyPlatformConfig" xml:space="preserve">
+        <value>Python does not support any platform specific configuration.</value>
+    </data>
+    <data name="DecimalOrHex" xml:space="preserve">
+        <value>Enter address (decimal/$hex)</value>
+    </data>
+    <data name="SrcCdeNone" xml:space="preserve">
+        <value>None</value>
+    </data>
+    <data name="SrcCdeLower" xml:space="preserve">
+        <value>Convert to lower case</value>
+    </data>
+    <data name="SrcCdeFlip" xml:space="preserve">
+        <value>Flip lower/higher case</value>
+    </data>
+    <data name="LoopHandlingRemove" xml:space="preserve">
+        <value>Remove empty loops</value>
+    </data>
+    <data name="LoopHandlingRetain" xml:space="preserve">
+        <value>Retain empty loops</value>
+    </data>
+    <data name="To" xml:space="preserve">
+        <value>to</value>
+    </data>
+    <data name="AddMemHole" xml:space="preserve">
+        <value>Add memory hole</value>
+    </data>
+    <data name="Compile" xml:space="preserve">
+        <value>Compile!</value>
+    </data>
+    <data name="Advanced" xml:space="preserve">
+        <value>Advanced Settinngs</value>
     </data>
 </root>
