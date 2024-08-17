@@ -77,4 +77,40 @@
     <data name="DecimalOrHexWDefault" xml:space="preserve">
         <value>Adresse eingeben (Dezimal/Hex, leer für Standard)</value>
     </data>
+    <data name="Step3" xml:space="preserve">
+        <value>3. Kompilierer Optionen</value>
+    </data>
+    <data name="MemHoles" xml:space="preserve">
+        <value>Speicherlöcher / gesperrte Bereiche:</value>
+    </data>
+    <data name="CompressLvl" xml:space="preserve">
+        <value>Komprimierungsstufe:</value>
+    </data>
+    <data name="LinkerOptBox" xml:space="preserve">
+        <value>In mehrere Dateien aufteilen</value>
+    </data>
+    <data name="LoopHandling" xml:space="preserve">
+        <value>Verhalten bei Schleifen:</value>
+    </data>
+    <data name="SrcCdePrsc" xml:space="preserve">
+        <value>Quellcodeverarbeitung:</value>
+    </data>
+    <data name="CompressLvl0" xml:space="preserve">
+        <value>Standard (am schnellesten)</value>
+    </data>
+    <data name="CompressLvl1" xml:space="preserve">
+        <value>Medium (langsamer)</value>
+    </data>
+    <data name="CompressLvl2" xml:space="preserve">
+        <value>Hoch (noch langsamer)</value>
+    </data>
+    <data name="CompressLvl3" xml:space="preserve">
+        <value>Höher (am langsamsten)</value>
+    </data>
+    <data name="EndAdd" xml:space="preserve">
+        <value>Endadresse</value>
+    </data>
+    <data name="StartAdd" xml:space="preserve">
+        <value>Startadresse</value>
+    </data>
 </root>

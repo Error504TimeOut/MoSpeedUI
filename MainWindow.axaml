@@ -7,7 +7,7 @@
         x:Class="MoSpeedUI.MainWindow"
         Title="MoSpeedUI"
         DragDrop.AllowDrop="True">
-    <Panel Margin="8">
+    <ScrollViewer Margin="8">
         <StackPanel HorizontalAlignment="Center" x:Name="ParentPanel">
             <Image HorizontalAlignment="Center" Source="avares://MoSpeedUI/Assets/Images/mospeed.png" x:Name="MoSpeedLogo"></Image>
             <TextBlock HorizontalAlignment="Center" FontSize="24" FontWeight="Medium" TextAlignment="Center" TextWrapping="WrapWithOverflow" Text="{x:Static lang:Resources.IntroText}" />
@@ -24,7 +24,9 @@
                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="DragText" Text="{x:Static lang:Resources.DragBox}" Padding="0,25,0,25"/>
                         </Border>
                         <TextBlock Text="{x:Static lang:Resources.FileListDesc}"/>
-                        <StackPanel x:Name="FileListPanel"></StackPanel>
+                        <ScrollViewer x:Name="FileListScroller" VerticalScrollBarVisibility="Visible">
+                            <StackPanel x:Name="FileListPanel"></StackPanel>
+                        </ScrollViewer>
                     </StackPanel>
                     <!--Step 1 END!-->
                     <!--Step 2 Start!-->
@@ -32,8 +34,8 @@
                         <TextBlock FontWeight="Bold" FontSize="26" Text="{x:Static lang:Resources.Step2}"/>
                         
                         <Grid ColumnDefinitions="*, *" RowDefinitions="*, *" Margin="0,0,0,10">
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static lang:Resources.TargetPlatform}" Margin="0,0,0,4"/>
-                            <ComboBox Grid.Row="1" Grid.Column="0" SelectedIndex="-1" x:Name="PlatformSelect">
+                            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static lang:Resources.TargetPlatform}" Margin="0,0,0,4"/>
+                            <ComboBox Margin="4,0,0,0" Grid.Row="1" Grid.Column="0" SelectedIndex="-1" x:Name="PlatformSelect">
                                 <ComboBoxItem>C64</ComboBoxItem>
                                 <ComboBoxItem>VIC 20/VC 20</ComboBoxItem>
                                 <ComboBoxItem>Commander X16 (r38)</ComboBoxItem>
@@ -73,7 +75,36 @@
                         </Grid>
                     </StackPanel>
                     <!--Step 2 END!-->
+                    <!--Step 3 Start-->
+                    <StackPanel x:Name="Step3">
+                        <TextBlock FontWeight="Bold" FontSize="26" Text="{x:Static lang:Resources.Step3}"/>
+                        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ShowGridLines="False">
+                            <Label Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.CompressLvl}" Target="CompressLvl"/>
+                            <ComboBox SelectedIndex="0" Margin="4" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" x:Name="CompressLvl">
+                                <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl0}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl1}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl2}"/>
+                                <ComboBoxItem Content="{x:Static lang:Resources.CompressLvl3}"/>
+                            </ComboBox>
+                            <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.SrcCdePrsc}" Target="SrcCdePrsc"/>
+                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" x:Name="SrcCdePrsc">
+                                <ComboBoxItem></ComboBoxItem>
+                                <ComboBoxItem></ComboBoxItem>
+                                <ComboBoxItem></ComboBoxItem>
+                            </ComboBox>
+                            <Label Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,6,0" Content="{x:Static lang:Resources.LoopHandling}" Target="LoopHandling"/>
+                            <ComboBox Margin="4" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" x:Name="LoopHandling">
+                                
+                            </ComboBox>
+                            <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,6,0" Content="Linker:"/>
+                            <CheckBox Margin="4" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" x:Name="LinkerOpt" Content="{x:Static lang:Resources.LinkerOptBox}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static lang:Resources.MemHoles}"/>
+                            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Grid.ColumnDefinitions="*, Auto, *" RowDefinitions="*">
+                                <TextBlock></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
                 </StackPanel>
         </StackPanel>
-    </Panel>
+    </ScrollViewer>
 </Window>

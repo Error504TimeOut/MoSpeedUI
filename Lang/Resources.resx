@@ -84,4 +84,40 @@
     <data name="DecimalOrHexWDefault" xml:space="preserve">
         <value>Enter address (decimal/hex, empty for default)</value>
     </data>
+    <data name="Step3" xml:space="preserve">
+        <value>Step 3: Compiler Configuration</value>
+    </data>
+    <data name="MemHoles" xml:space="preserve">
+        <value>Memory holes / locked regions:</value>
+    </data>
+    <data name="CompressLvl" xml:space="preserve">
+        <value>Compression level:</value>
+    </data>
+    <data name="SrcCdePrsc" xml:space="preserve">
+        <value>Source code processing:</value>
+    </data>
+    <data name="LoopHandling" xml:space="preserve">
+        <value>Loop handling:</value>
+    </data>
+    <data name="LinkerOptBox" xml:space="preserve">
+        <value>Split into multiple files</value>
+    </data>
+    <data name="CompressLvl0" xml:space="preserve">
+        <value>Default (fastest)</value>
+    </data>
+    <data name="CompressLvl1" xml:space="preserve">
+        <value>Medium (slower)</value>
+    </data>
+    <data name="CompressLvl2" xml:space="preserve">
+        <value>High (even slower)</value>
+    </data>
+    <data name="CompressLvl3" xml:space="preserve">
+        <value>Higher (slowest)</value>
+    </data>
+    <data name="StartAdd" xml:space="preserve">
+        <value>Start address</value>
+    </data>
+    <data name="EndAdd" xml:space="preserve">
+        <value>End address</value>
+    </data>
 </root>

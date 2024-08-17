@@ -32,10 +32,12 @@ public partial class MainWindow : Window
         this.Height = 600;
         MoSpeedLogo.MaxWidth = (int)(this.Width / 3);
         //ParentPanel.MaxWidth = (int)(this.ClientSize.Width / 2);
+        FileListScroller.MaxHeight = (int)(this.ClientSize.Height * 0.4);
         ControlPanel.MaxWidth = (int)(this.ClientSize.Width * 0.75);
         ControlPanel.Width = (int)(this.ClientSize.Width * 0.75);
         this.Resized += (_, e) =>
         {
+            FileListScroller.MaxHeight = (int)(this.ClientSize.Height * 0.4);
             MoSpeedLogo.MaxWidth = (int)(this.Width / 3);
             ControlPanel.MaxWidth = (int)(e.ClientSize.Width * 0.75);
             ControlPanel.Width = ControlPanel.MaxWidth;

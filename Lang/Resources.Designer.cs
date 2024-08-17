@@ -176,5 +176,77 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("DecimalOrHexWDefault", resourceCulture);
             }
         }
+        
+        public static string Step3 {
+            get {
+                return ResourceManager.GetString("Step3", resourceCulture);
+            }
+        }
+        
+        public static string MemHoles {
+            get {
+                return ResourceManager.GetString("MemHoles", resourceCulture);
+            }
+        }
+        
+        public static string CompressLvl {
+            get {
+                return ResourceManager.GetString("CompressLvl", resourceCulture);
+            }
+        }
+        
+        public static string SrcCdePrsc {
+            get {
+                return ResourceManager.GetString("SrcCdePrsc", resourceCulture);
+            }
+        }
+        
+        public static string LoopHandling {
+            get {
+                return ResourceManager.GetString("LoopHandling", resourceCulture);
+            }
+        }
+        
+        public static string LinkerOptBox {
+            get {
+                return ResourceManager.GetString("LinkerOptBox", resourceCulture);
+            }
+        }
+        
+        public static string CompressLvl0 {
+            get {
+                return ResourceManager.GetString("CompressLvl0", resourceCulture);
+            }
+        }
+        
+        public static string CompressLvl1 {
+            get {
+                return ResourceManager.GetString("CompressLvl1", resourceCulture);
+            }
+        }
+        
+        public static string CompressLvl2 {
+            get {
+                return ResourceManager.GetString("CompressLvl2", resourceCulture);
+            }
+        }
+        
+        public static string CompressLvl3 {
+            get {
+                return ResourceManager.GetString("CompressLvl3", resourceCulture);
+            }
+        }
+        
+        public static string StartAdd {
+            get {
+                return ResourceManager.GetString("StartAdd", resourceCulture);
+            }
+        }
+        
+        public static string EndAdd {
+            get {
+                return ResourceManager.GetString("EndAdd", resourceCulture);
+            }
+        }
     }
 }
