@@ -113,7 +113,7 @@
                                 <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,0,4,0" Text="{x:Static lang:Resources.To}" />
                                 <TextBox x:Name="MemHoleEnd0" Grid.Row="0" Grid.Column="2" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
                             </Grid>
-                            <Button Grid.Row="6" Grid.Column="1" Margin="0,4,0,0" HorizontalAlignment="Right" Content="{x:Static lang:Resources.AddMemHole}" Click="MemHoleBtn_OnClick"/>
+                            <Button Grid.Row="6" x:Name="MemHoleBtn" Grid.Column="1" Margin="0,4,0,0" HorizontalAlignment="Right" Content="{x:Static lang:Resources.AddMemHole}" Click="MemHoleBtn_OnClick"/>
                         </Grid>
                     </StackPanel>
                     <!--Step 3 END!-->

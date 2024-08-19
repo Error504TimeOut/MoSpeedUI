@@ -73,15 +73,32 @@ public partial class MainWindow : Window
                 Console.WriteLine(file.Path);
             }
         };
-        PlatformSelect.SelectionChanged += (s, _) =>
+        PlatformSelect.SelectionChanged += (_, _) =>
         {
             var panels = PlatformConf.Children.Where(x => x.GetType() == typeof(Panel)).ToList();
             foreach (var panel in panels)
             {
                 panel.IsVisible = false;
             }
-
             panels[PlatformSelect.SelectedIndex].IsVisible = true;
+            if (PlatformSelect.SelectedIndex >= 2)
+            {
+                ProgramStartAdd.IsEnabled = false;
+                VarsStartAdd.IsEnabled = false;
+                StringMemEndAdd.IsEnabled = false;
+                RuntimeStartAdd.IsEnabled = false;
+                MemHoleGrid.IsEnabled = false;
+                MemHoleBtn.IsEnabled = false;
+            }
+            else
+            {
+                ProgramStartAdd.IsEnabled = true;
+                VarsStartAdd.IsEnabled = true;
+                StringMemEndAdd.IsEnabled = true;
+                RuntimeStartAdd.IsEnabled = true;
+                MemHoleGrid.IsEnabled = true;
+                MemHoleBtn.IsEnabled = true;
+            }
         };
         PlatformSelect.SelectedIndex = 0;
         //MemHoleGrid.RowDefinitions = new RowDefinitions("*,*");
