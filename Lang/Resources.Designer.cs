@@ -320,5 +320,119 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("Advanced", resourceCulture);
             }
         }
+        
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        public static string SetupText {
+            get {
+                return ResourceManager.GetString("SetupText", resourceCulture);
+            }
+        }
+        
+        public static string SetupStep1 {
+            get {
+                return ResourceManager.GetString("SetupStep1", resourceCulture);
+            }
+        }
+        
+        public static string DwnldMS {
+            get {
+                return ResourceManager.GetString("DwnldMS", resourceCulture);
+            }
+        }
+        
+        public static string FndMS {
+            get {
+                return ResourceManager.GetString("FndMS", resourceCulture);
+            }
+        }
+        
+        public static string SetupStep2a {
+            get {
+                return ResourceManager.GetString("SetupStep2a", resourceCulture);
+            }
+        }
+        
+        public static string SetupStep2b {
+            get {
+                return ResourceManager.GetString("SetupStep2b", resourceCulture);
+            }
+        }
+        
+        public static string DwnldMSBtn {
+            get {
+                return ResourceManager.GetString("DwnldMSBtn", resourceCulture);
+            }
+        }
+        
+        public static string FndMSBtn {
+            get {
+                return ResourceManager.GetString("FndMSBtn", resourceCulture);
+            }
+        }
+        
+        public static string FndMSWm {
+            get {
+                return ResourceManager.GetString("FndMSWm", resourceCulture);
+            }
+        }
+        
+        public static string FinishSetup {
+            get {
+                return ResourceManager.GetString("FinishSetup", resourceCulture);
+            }
+        }
+        
+        public static string MSPickerTitle {
+            get {
+                return ResourceManager.GetString("MSPickerTitle", resourceCulture);
+            }
+        }
+        
+        public static string MSPickerInvalidPath {
+            get {
+                return ResourceManager.GetString("MSPickerInvalidPath", resourceCulture);
+            }
+        }
+        
+        public static string MSPickerNoMS {
+            get {
+                return ResourceManager.GetString("MSPickerNoMS", resourceCulture);
+            }
+        }
+        
+        public static string MSPickerSuccess {
+            get {
+                return ResourceManager.GetString("MSPickerSuccess", resourceCulture);
+            }
+        }
+        
+        public static string MSDownloadSuccess {
+            get {
+                return ResourceManager.GetString("MSDownloadSuccess", resourceCulture);
+            }
+        }
+        
+        public static string Unzip {
+            get {
+                return ResourceManager.GetString("Unzip", resourceCulture);
+            }
+        }
+        
+        public static string MSDownloadError {
+            get {
+                return ResourceManager.GetString("MSDownloadError", resourceCulture);
+            }
+        }
+        
+        public static string CollectingInfo {
+            get {
+                return ResourceManager.GetString("CollectingInfo", resourceCulture);
+            }
+        }
     }
 }

@@ -149,4 +149,61 @@
     <data name="Advanced" xml:space="preserve">
         <value>Erweiterte Einstellungen</value>
     </data>
+    <data name="Welcome" xml:space="preserve">
+        <value>Willkommen!</value>
+    </data>
+    <data name="SetupText" xml:space="preserve">
+        <value>Es scheint so, als würdest du MoSpeedUI zum ersten Mal verwenden. Zumindest konnte keine Konfigurationsdatei gefunden werden. Dieses Setup wird für dich eine erstellen.</value>
+    </data>
+    <data name="SetupStep1" xml:space="preserve">
+        <value>1. MoSpeed herunterladen oder finden</value>
+    </data>
+    <data name="DwnldMS" xml:space="preserve">
+        <value>MoSpeed herunterladen</value>
+    </data>
+    <data name="FndMS" xml:space="preserve">
+        <value>Bereits heruntergeladenes MoSpeed verwenden</value>
+    </data>
+    <data name="SetupStep2a" xml:space="preserve">
+        <value>2. MoSpeed herunterladen</value>
+    </data>
+    <data name="SetupStep2b" xml:space="preserve">
+        <value>2. Bereits heruntergeladenes MoSpeed verwenden</value>
+    </data>
+    <data name="DwnldMSBtn" xml:space="preserve">
+        <value>MoSpeed herunterladen und Setup abschließen!</value>
+    </data>
+    <data name="FndMSBtn" xml:space="preserve">
+        <value>Suchen</value>
+    </data>
+    <data name="FndMSWm" xml:space="preserve">
+        <value>C:\Users\Admin\MoSpeed\dist\</value>
+    </data>
+    <data name="FinishSetup" xml:space="preserve">
+        <value>Pfad überprüfen und Setup abschließen</value>
+    </data>
+    <data name="MSPickerTitle" xml:space="preserve">
+        <value>dist/ Ordner auswählen</value>
+    </data>
+    <data name="MSPickerInvalidPath" xml:space="preserve">
+        <value>Dein ausgewählter Pfad existiert nicht.</value>
+    </data>
+    <data name="MSPickerNoMS" xml:space="preserve">
+        <value>Es scheint, als würde der von dir ausgewählte Pfad MoSpeed nicht enthalten. Stelle bitte sicher, dass der Pfad, welchen du ausgewählt hast, eine Datei mit dem Namen 'basicv2.jar' enthält.</value>
+    </data>
+    <data name="MSPickerSuccess" xml:space="preserve">
+        <value>MoSpeed wurde im angegebenen Pfad gefunden. Das Setup ist abgeschlossen. Bitte drücke erneut auf 'Kompilieren!'</value>
+    </data>
+    <data name="MSDownloadSuccess" xml:space="preserve">
+        <value>MoSpeed wurde erfolgreich heruntergeladen und hier gespeichert:</value>
+    </data>
+    <data name="Unzip" xml:space="preserve">
+        <value>Entpacken...</value>
+    </data>
+    <data name="MSDownloadError" xml:space="preserve">
+        <value>Bei dem Versuch, MoSpeed herunterzuladen ist ein Fehler aufgetreten:</value>
+    </data>
+    <data name="CollectingInfo" xml:space="preserve">
+        <value>Kompiliereinstellungen sammeln...</value>
+    </data>
 </root>

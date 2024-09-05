@@ -46,7 +46,7 @@
                             <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" ColumnDefinitions="*" RowDefinitions="Auto, *, *" Margin="8,0,0,0" x:Name="PlatformConf">
                                 <TextBlock Grid.Row="0" Text="{x:Static lang:Resources.PlatformSpecific}" Margin="0,0,0,4"/>
                                 <Panel Grid.Row="1" x:Name="C64Conf">
-                                   <CheckBox Content="{x:Static lang:Resources.C64Specific}"/>
+                                   <CheckBox x:Name="C64ConfBox" Content="{x:Static lang:Resources.C64Specific}"/>
                                 </Panel>
                                 
                                 <Panel Grid.Row="1" x:Name="Vc20Conf">
@@ -109,17 +109,17 @@
                             <CheckBox Margin="4" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" x:Name="LinkerOpt" Content="{x:Static lang:Resources.LinkerOptBox}"/>
                             <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="{x:Static lang:Resources.MemHoles}"/>
                             <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="MemHoleGrid" RowDefinitions="*" ColumnDefinitions="*, Auto, *">
-                                <TextBox x:Name="MemHoleStart0" Grid.Row="0" Grid.Column="0" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
+                                <TextBox Name="MemHoleStart0" Grid.Row="0" Grid.Column="0" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
                                 <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="4,0,4,0" Text="{x:Static lang:Resources.To}" />
-                                <TextBox x:Name="MemHoleEnd0" Grid.Row="0" Grid.Column="2" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
+                                <TextBox Name="MemHoleEnd0" Grid.Row="0" Grid.Column="2" Watermark="{x:Static lang:Resources.DecimalOrHex}" />
                             </Grid>
                             <Button Grid.Row="6" x:Name="MemHoleBtn" Grid.Column="1" Margin="0,4,0,0" HorizontalAlignment="Right" Content="{x:Static lang:Resources.AddMemHole}" Click="MemHoleBtn_OnClick"/>
                         </Grid>
                     </StackPanel>
                     <!--Step 3 END!-->
                     <StackPanel x:Name="Step4" Margin="0,16,0,0">
-                        <Button Margin="0,0,0,4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Compile}"/>
-                        <Button Margin="0,0,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Advanced}"/>
+                        <Button x:Name="CompileBtn" Click="CompileBtn_OnClick" Margin="0,0,0,4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Compile}"/>
+                        <Button Margin="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Content="{x:Static lang:Resources.Advanced}"/>
                     </StackPanel>
                 </StackPanel>
         </StackPanel>

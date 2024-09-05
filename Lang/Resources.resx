@@ -156,4 +156,61 @@
     <data name="Advanced" xml:space="preserve">
         <value>Advanced Settinngs</value>
     </data>
+    <data name="Welcome" xml:space="preserve">
+        <value>Welcome!</value>
+    </data>
+    <data name="SetupText" xml:space="preserve">
+        <value>It seems, like you're using MoSpeedUI for the first time or the config file couldn't be found. This Setup will guide you through creating one.</value>
+    </data>
+    <data name="SetupStep1" xml:space="preserve">
+        <value>Step 1: Download or Find MoSpeed</value>
+    </data>
+    <data name="DwnldMS" xml:space="preserve">
+        <value>Download MoSpeed</value>
+    </data>
+    <data name="FndMS" xml:space="preserve">
+        <value>Find already downloaded MoSpeed</value>
+    </data>
+    <data name="SetupStep2a" xml:space="preserve">
+        <value>Step 2: Download MoSpeed</value>
+    </data>
+    <data name="SetupStep2b" xml:space="preserve">
+        <value>Step 2: Find MoSpeed</value>
+    </data>
+    <data name="DwnldMSBtn" xml:space="preserve">
+        <value>Download MoSpeed and finish setup!</value>
+    </data>
+    <data name="FndMSBtn" xml:space="preserve">
+        <value>Find</value>
+    </data>
+    <data name="FndMSWm" xml:space="preserve">
+        <value>C:\Users\Admin\MoSpeed\dist\</value>
+    </data>
+    <data name="FinishSetup" xml:space="preserve">
+        <value>Check path and finish setup</value>
+    </data>
+    <data name="MSPickerTitle" xml:space="preserve">
+        <value>Select dist/ Directory</value>
+    </data>
+    <data name="MSPickerInvalidPath" xml:space="preserve">
+        <value>The path you selected does not exist.</value>
+    </data>
+    <data name="MSPickerNoMS" xml:space="preserve">
+        <value>The path you selected does not seem to contain MoSpeed. Please make sure that the path you selected cointains a file called 'basicv2.jar'.</value>
+    </data>
+    <data name="MSPickerSuccess" xml:space="preserve">
+        <value>MoSpeed has been found in the selected path. Setup is complete. Please press 'Compile!' agian.</value>
+    </data>
+    <data name="MSDownloadSuccess" xml:space="preserve">
+        <value>MoSpeed has been successfully downloaded to:</value>
+    </data>
+    <data name="Unzip" xml:space="preserve">
+        <value>Unzipping...</value>
+    </data>
+    <data name="MSDownloadError" xml:space="preserve">
+        <value>An error occured while trying to download MoSpeed:</value>
+    </data>
+    <data name="CollectingInfo" xml:space="preserve">
+        <value>Collecting compile info...</value>
+    </data>
 </root>

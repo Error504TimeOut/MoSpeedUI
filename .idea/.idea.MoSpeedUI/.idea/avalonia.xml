@@ -5,6 +5,7 @@
       <map>
         <entry key="App.axaml" value="MoSpeedUI.csproj" />
         <entry key="MainWindow.axaml" value="MoSpeedUI.csproj" />
+        <entry key="SetupWindow.axaml" value="MoSpeedUI.csproj" />
       </map>
     </option>
   </component>

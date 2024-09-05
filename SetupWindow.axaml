@@ -1,0 +1,31 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lang="clr-namespace:MoSpeedUI.Lang"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MoSpeedUI.SetupWindow"
+        Title="Setup">
+    <StackPanel Margin="8">
+        <TextBlock FontWeight="Medium" FontSize="24" Text="{x:Static lang:Resources.Welcome}"/>
+        <TextBlock TextWrapping="Wrap" Text="{x:Static lang:Resources.SetupText}"/>
+        <StackPanel Margin="0,6,0,0">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="{x:Static lang:Resources.SetupStep1}"/>
+            <RadioButton GroupName="MSC" x:Name="DwnldMsRBtn" Content="{x:Static lang:Resources.DwnldMS}"/>
+            <RadioButton GroupName="MSC" Content="{x:Static lang:Resources.FndMS}"/>
+        </StackPanel>
+        <StackPanel x:Name="Step2A" IsVisible="False">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="{x:Static lang:Resources.SetupStep2a}"/>
+            <Button x:Name="DwnldBtn" Click="DwnldBtn_OnClick" Content="{x:Static lang:Resources.DwnldMSBtn}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            <ProgressBar Margin="0,4,0,0" x:Name="DwnldBar" IsVisible="False"></ProgressBar>
+        </StackPanel>
+        <StackPanel x:Name="Step2B" IsVisible="False">
+            <TextBlock FontWeight="Bold" FontSize="20" Text="{x:Static lang:Resources.SetupStep2b}"/>
+            <StackPanel HorizontalAlignment="Stretch">
+                    <TextBox x:Name="PathBox" VerticalAlignment="Center" Watermark="{x:Static lang:Resources.FndMSWm}" HorizontalAlignment="Stretch" />
+                    <Button Click="PathSelectBtn_OnClick" x:Name="PathSelectBtn" Margin="0,4,0,0" VerticalAlignment="Center" Content="{x:Static lang:Resources.FndMSBtn}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+            </StackPanel>
+            <Button Click="FinishSetupBtn_OnClick" x:Name="FinishSetupBtn" Margin="0,8,0,0" Content="{x:Static lang:Resources.FinishSetup}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -14,6 +14,7 @@ using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.VisualTree;
 
 namespace MoSpeedUI;
 
@@ -25,7 +26,11 @@ public partial class MainWindow : Window
         AppleUniformTypeIdentifiers = new[] { "public.text" },
         MimeTypes = new[] { "text/*" }
     };
-    private CompileConfig CompileConfig = new();
+
+    public static readonly string ConfigFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI");
+    public static readonly string ConfigFile = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI","path");
+    private readonly CompileConfig _compileConfig = new();
+    
     public MainWindow()
     {
         InitializeComponent();
@@ -60,15 +65,15 @@ public partial class MainWindow : Window
             });
             if (files.Count >= 1)
             {
-                CompileConfig.Files.AddRange(files.ToList());
-                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                _compileConfig.Files.AddRange(files.ToList());
+                _compileConfig.Files = _compileConfig.Files.Distinct(new FilePathCompare()).ToList();
                 RefreshFileList();
             }
             else
             {
                 return;
             }
-            foreach (var file in CompileConfig.Files)
+            foreach (var file in _compileConfig.Files)
             {
                 Console.WriteLine(file.Path);
             }
@@ -107,7 +112,7 @@ public partial class MainWindow : Window
     private void RefreshFileList()
     {
         FileListPanel.Children.Clear();
-        foreach (var file in CompileConfig.Files)
+        foreach (var file in _compileConfig.Files)
         {
             var textBlock = new TextBlock()
                 { Text = String.Format("• {0}", file.Name)};
@@ -125,7 +130,7 @@ public partial class MainWindow : Window
                     var txtBlock = s as Border;
                     if (txtBlock != null)
                     {
-                        CompileConfig.Files.RemoveAt(FileListPanel.Children.IndexOf(txtBlock));
+                        _compileConfig.Files.RemoveAt(FileListPanel.Children.IndexOf(txtBlock));
                         RefreshFileList();
                     }
                 }
@@ -167,19 +172,19 @@ public partial class MainWindow : Window
         {
             if (file is IStorageFile item)
             {
-                CompileConfig.Files.Add(item);
-                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                _compileConfig.Files.Add(item);
+                _compileConfig.Files = _compileConfig.Files.Distinct(new FilePathCompare()).ToList();
                 RefreshFileList();
             }
         }
     }
 
     private void MemHoleBtn_OnClick(object? sender, RoutedEventArgs e)
-    {
+    { 
         MemHoleGrid.RowDefinitions.Add(new RowDefinition(){Height = GridLength.Star});
         Console.WriteLine(MemHoleGrid.RowDefinitions.Count-1);
         var startBox = (new TextBox(){Name = "MemHoleStart"+(MemHoleGrid.RowDefinitions.Count-1), Watermark = Lang.Resources.DecimalOrHex, Margin = new Thickness(0,4,0,0)});
-        var endBox = (new TextBox(){Name = "MemHoleStart"+(MemHoleGrid.RowDefinitions.Count-1), Watermark = Lang.Resources.DecimalOrHex, Margin = new Thickness(0,4,0,0)});
+        var endBox = (new TextBox(){Name = "MemHoleEnd"+(MemHoleGrid.RowDefinitions.Count-1), Watermark = Lang.Resources.DecimalOrHex, Margin = new Thickness(0,4,0,0)});
         var textBox = (new TextBlock() { Text = Lang.Resources.To, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(4,4,4,0)});
         Grid.SetRow(startBox, MemHoleGrid.RowDefinitions.Count - 1);
         Grid.SetRow(endBox, MemHoleGrid.RowDefinitions.Count - 1);
@@ -187,6 +192,145 @@ public partial class MainWindow : Window
         Grid.SetColumn(startBox, 0);
         Grid.SetColumn(textBox, 1);
         Grid.SetColumn(endBox, 2);
+        startBox.Name = "MemHoleStart"+(MemHoleGrid.RowDefinitions.Count - 1);
+        endBox.Name = "MemHoleEnd"+(MemHoleGrid.RowDefinitions.Count - 1);
         MemHoleGrid.Children.AddRange(new List<Control> { startBox,endBox,textBox });
+    }
+
+    private void CompileBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (!Directory.Exists(ConfigFolder))
+        {
+            Directory.CreateDirectory(ConfigFolder);
+            File.Create(ConfigFile);
+            SetupRoutine();
+        }
+        else
+        {
+            if (!File.Exists(ConfigFile))
+            {
+                SetupRoutine();
+            }
+        }
+        CompileBtn.Content = Lang.Resources.CollectingInfo;
+        CompileBtn.IsEnabled = false;
+        GetTopLevel(CompileBtn).Cursor = new Cursor(StandardCursorType.Wait);
+        CollectInfo();
+    }
+
+    private void CollectInfo()
+    {
+
+
+        _compileConfig.TargetPlatform = (() =>
+        {
+            switch (PlatformSelect.SelectionBoxItem.ToString())
+            {
+                case "C64":
+                    return "c64";
+                case "VIC 20/VC 20":
+                    return "vc20";
+                case "JavaScript":
+                    return "js";
+                case "Powershell":
+                    return "ps";
+                case "Python":
+                    return "py";
+                default:
+                    return "c64";
+            }
+        });
+        _compileConfig.Vc20Conf = (() =>
+        {
+            switch (Vc20ConfBox.SelectedIndex)
+            {
+                case 0:
+                    return 0;
+                case 1:
+                    return 3;
+                case 2:
+                    return 8;
+                default:
+                    return 8;
+            }
+        });
+        _compileConfig.C64Conf = (bool)C64ConfBox.IsChecked!;
+        if (PlatformSelect.SelectedIndex < 2)
+        {
+            Console.WriteLine("collecting mem info");
+            _compileConfig.ProgramStartAdd = ProgramStartAdd.Text;
+            _compileConfig.VariableStartAdd = VarsStartAdd.Text;
+            _compileConfig.StringMemEndAdd = StringMemEndAdd.Text;
+            _compileConfig.RuntimeStartAdd = RuntimeStartAdd.Text;
+            _compileConfig.MemHoles = GenerateMemHolesString();
+            Console.WriteLine(_compileConfig.MemHoles);
+        }
+        Console.WriteLine("collecting compile options");
+        _compileConfig.CompactLevel = CompressLvl.SelectedIndex;
+        switch (SrcCdePrsc.SelectedIndex)
+        {
+            case 0:
+                _compileConfig.LowerSrc = "false";
+                _compileConfig.FlipSrcCase = "false";
+                break;
+            case 1:
+                _compileConfig.LowerSrc = "true";
+                _compileConfig.FlipSrcCase = "false";
+                break;
+            case 2:
+                _compileConfig.LowerSrc = "false";
+                _compileConfig.FlipSrcCase = "true";
+                break;
+            default:
+                _compileConfig.LowerSrc = "false";
+                _compileConfig.FlipSrcCase = "false";
+                break;
+        }
+
+        if(LoopHandling.SelectedIndex == 0)
+        {
+            _compileConfig.RemLoops = "true";
+        }
+        else if(LoopHandling.SelectedIndex == 1)
+        {
+            _compileConfig.RemLoops = "false";
+        }
+        else
+        {
+            _compileConfig.RemLoops = "false";
+        }
+        if ((bool)LinkerOpt.IsChecked)
+        {
+            _compileConfig.SplitOutput = "true";
+        }
+        else
+        {
+            _compileConfig.SplitOutput = "false";
+        }
+    }
+
+    private string GenerateMemHolesString()
+    {
+        int memholesCount = MemHoleGrid.Children.Count(x => x.GetType() == typeof(TextBlock));
+        Console.WriteLine(memholesCount);
+        List<string> memholes = [];
+        for (int i = 0; i <= memholesCount -1; i++)
+        {
+            var startBox = (TextBox)MemHoleGrid.Children.Where(x => x.Name == $"MemHoleStart{i}").ToList()[0];
+            var endBox = (TextBox)MemHoleGrid.Children.Where(x => x.Name == $"MemHoleEnd{i}").ToList()[0];
+            // TODO: Make more efficient, line under this does not work. Current solution inefficient
+            //memholes.Add($"{MemHoleGrid.FindControl<TextBox>($"MemHoleStart{i}")?.Text}-{MemHoleGrid.FindControl<TextBox>($"MemHoleEnd{i}")?.Text}");
+            // ReSharper disable once AccessToModifiedClosure
+            if (!String.IsNullOrWhiteSpace(startBox.Text) && !String.IsNullOrWhiteSpace(endBox.Text))
+            {
+                memholes.Add($"{startBox.Text}-{endBox.Text}");
+            }
+        }
+        return String.Join(",",memholes);
+    }
+    private void SetupRoutine()
+    {
+        SetupWindow setupWindow = new();
+        setupWindow.ShowDialog(this);
     }
 }
