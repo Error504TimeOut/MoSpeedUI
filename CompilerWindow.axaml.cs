@@ -28,11 +28,17 @@ public partial class CompilerWindow : Window
         {
             CompileOut.Height = e.ClientSize.Height / 2;
         };*/
-        var fileout = Task.Run(SelectOutput).GetAwaiter().GetResult();
+        IStorageFile? fileout = Task.Run(SelectOutput).GetAwaiter().GetResult();
+        if (fileout == null)
+        {
+            this.Close();
+            return;
+        }
         MainWindow.CompileConfig.OutputFile = fileout;
         MainWindow.CompileConfig.ArgumentList = BuildArguments();
         ArgumentList.Text = String.Format(Lang.Resources.UsingArguments, MainWindow.CompileConfig.ArgumentList);
         Compile();
+        MainWindow.CompileConfig.OutputFile = null;
     }
 
     private async void Compile()
@@ -42,6 +48,7 @@ public partial class CompilerWindow : Window
         mospeed.StartInfo.WorkingDirectory = MainWindow.CompileConfig.MoSpeedPath;
         mospeed.StartInfo.FileName = "java";
         mospeed.StartInfo.UseShellExecute = false;
+        mospeed.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         if (isWindows)
         {
             mospeed.StartInfo.Arguments =
@@ -71,15 +78,18 @@ public partial class CompilerWindow : Window
             });
         }
     }
-    private async Task<IStorageFile> SelectOutput()
+    private async Task<IStorageFile?> SelectOutput()
     {
         int count = 1;
         IStorageFile? file = null;
         while (file == null)
         {
-            if (count == 0)
+            if (count >= 4)
             {
-                Close();
+                Dispatcher.UIThread.Post(() =>
+                {
+                    Close();
+                });
                 break;
             }
             file = await this.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
