@@ -237,12 +237,6 @@ namespace MoSpeedUI.Lang {
             }
         }
         
-        public static string StartAdd {
-            get {
-                return ResourceManager.GetString("StartAdd", resourceCulture);
-            }
-        }
-        
         public static string EndAdd {
             get {
                 return ResourceManager.GetString("EndAdd", resourceCulture);
@@ -432,6 +426,120 @@ namespace MoSpeedUI.Lang {
         public static string CollectingInfo {
             get {
                 return ResourceManager.GetString("CollectingInfo", resourceCulture);
+            }
+        }
+        
+        public static string JavaNotFoundError {
+            get {
+                return ResourceManager.GetString("JavaNotFoundError", resourceCulture);
+            }
+        }
+        
+        public static string WrongJavaVersionException {
+            get {
+                return ResourceManager.GetString("WrongJavaVersionException", resourceCulture);
+            }
+        }
+        
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        public static string Abort {
+            get {
+                return ResourceManager.GetString("Abort", resourceCulture);
+            }
+        }
+        
+        public static string JavaGenericError {
+            get {
+                return ResourceManager.GetString("JavaGenericError", resourceCulture);
+            }
+        }
+        
+        public static string JavaWrongVersion {
+            get {
+                return ResourceManager.GetString("JavaWrongVersion", resourceCulture);
+            }
+        }
+        
+        public static string Compiling {
+            get {
+                return ResourceManager.GetString("Compiling", resourceCulture);
+            }
+        }
+        
+        public static string UsingArguments {
+            get {
+                return ResourceManager.GetString("UsingArguments", resourceCulture);
+            }
+        }
+        
+        public static string SaveFilePickerTitle {
+            get {
+                return ResourceManager.GetString("SaveFilePickerTitle", resourceCulture);
+            }
+        }
+        
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        public static string AdvWelcome {
+            get {
+                return ResourceManager.GetString("AdvWelcome", resourceCulture);
+            }
+        }
+        
+        public static string AdvWatermark {
+            get {
+                return ResourceManager.GetString("AdvWatermark", resourceCulture);
+            }
+        }
+        
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        public static string OpenParameterWiki {
+            get {
+                return ResourceManager.GetString("OpenParameterWiki", resourceCulture);
+            }
+        }
+        
+        public static string WikiUrl {
+            get {
+                return ResourceManager.GetString("WikiUrl", resourceCulture);
+            }
+        }
+        
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        public static string LicenseNote {
+            get {
+                return ResourceManager.GetString("LicenseNote", resourceCulture);
+            }
+        }
+        
+        public static string OpenGit {
+            get {
+                return ResourceManager.GetString("OpenGit", resourceCulture);
+            }
+        }
+        
+        public static string ReportBug {
+            get {
+                return ResourceManager.GetString("ReportBug", resourceCulture);
             }
         }
     }

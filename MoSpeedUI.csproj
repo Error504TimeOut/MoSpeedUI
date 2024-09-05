@@ -42,5 +42,7 @@
       <AvaloniaResource Include="Assets\Images\mospeed.png" />
       <None Remove="Assets\Images\mospeed.svg" />
       <AvaloniaResource Include="Assets\Images\mospeed.svg" />
+      <None Remove="Assets\Text\LicenseText.txt" />
+      <AvaloniaResource Include="Assets\Text\LicenseText.txt" />
     </ItemGroup>
 </Project>

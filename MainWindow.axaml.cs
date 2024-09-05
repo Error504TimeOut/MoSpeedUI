@@ -15,6 +15,9 @@ using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Models;
 
 namespace MoSpeedUI;
 
@@ -29,7 +32,7 @@ public partial class MainWindow : Window
 
     public static readonly string ConfigFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI");
     public static readonly string ConfigFile = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI","path");
-    private readonly CompileConfig _compileConfig = new();
+    public static readonly CompileConfig CompileConfig = new();
     
     public MainWindow()
     {
@@ -65,15 +68,15 @@ public partial class MainWindow : Window
             });
             if (files.Count >= 1)
             {
-                _compileConfig.Files.AddRange(files.ToList());
-                _compileConfig.Files = _compileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                CompileConfig.Files.AddRange(files.ToList());
+                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
                 RefreshFileList();
             }
             else
             {
                 return;
             }
-            foreach (var file in _compileConfig.Files)
+            foreach (var file in CompileConfig.Files)
             {
                 Console.WriteLine(file.Path);
             }
@@ -105,14 +108,14 @@ public partial class MainWindow : Window
                 MemHoleBtn.IsEnabled = true;
             }
         };
+        AboutLink.Cursor = new Cursor(StandardCursorType.Hand);
         PlatformSelect.SelectedIndex = 0;
-        //MemHoleGrid.RowDefinitions = new RowDefinitions("*,*");
     }
 
     private void RefreshFileList()
     {
         FileListPanel.Children.Clear();
-        foreach (var file in _compileConfig.Files)
+        foreach (var file in CompileConfig.Files)
         {
             var textBlock = new TextBlock()
                 { Text = String.Format("• {0}", file.Name)};
@@ -130,7 +133,7 @@ public partial class MainWindow : Window
                     var txtBlock = s as Border;
                     if (txtBlock != null)
                     {
-                        _compileConfig.Files.RemoveAt(FileListPanel.Children.IndexOf(txtBlock));
+                        CompileConfig.Files.RemoveAt(FileListPanel.Children.IndexOf(txtBlock));
                         RefreshFileList();
                     }
                 }
@@ -172,8 +175,8 @@ public partial class MainWindow : Window
         {
             if (file is IStorageFile item)
             {
-                _compileConfig.Files.Add(item);
-                _compileConfig.Files = _compileConfig.Files.Distinct(new FilePathCompare()).ToList();
+                CompileConfig.Files.Add(item);
+                CompileConfig.Files = CompileConfig.Files.Distinct(new FilePathCompare()).ToList();
                 RefreshFileList();
             }
         }
@@ -197,32 +200,117 @@ public partial class MainWindow : Window
         MemHoleGrid.Children.AddRange(new List<Control> { startBox,endBox,textBox });
     }
 
-    private void CompileBtn_OnClick(object? sender, RoutedEventArgs e)
+    private async void CompileBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         if (!Directory.Exists(ConfigFolder))
         {
             Directory.CreateDirectory(ConfigFolder);
             File.Create(ConfigFile);
             SetupRoutine();
+            return;
         }
         else
         {
             if (!File.Exists(ConfigFile))
             {
                 SetupRoutine();
+                return;
             }
         }
         CompileBtn.Content = Lang.Resources.CollectingInfo;
         CompileBtn.IsEnabled = false;
-        GetTopLevel(CompileBtn).Cursor = new Cursor(StandardCursorType.Wait);
-        CollectInfo();
+        this.Cursor = new Cursor(StandardCursorType.Wait);
+        if (await CheckForJava())
+        {
+            Console.WriteLine("Java found.");
+            CollectInfo();
+        }
+        CompileBtn.Content = Lang.Resources.Compiling;
+        foreach (var file in CompileConfig.Files)
+        {
+            CompileConfig.CurrentFile = file;
+            CompilerWindow cmpW = new();
+            cmpW.ShowDialog(this);
+        }
+        this.Cursor = new Cursor(StandardCursorType.Arrow);
+        CompileBtn.Content = Lang.Resources.Compile;
+        CompileBtn.IsEnabled = true;
     }
 
+    async private Task<bool> CheckForJava()
+    {
+        string stdout = "";
+        Process process = new Process();
+        process.StartInfo.FileName = "java";
+        process.StartInfo.Arguments = "-fullversion";
+        process.StartInfo.UseShellExecute = false;
+        process.StartInfo.RedirectStandardError = true;
+        try
+        {
+            process.Start();
+            await process.WaitForExitAsync();
+            stdout = await process.StandardError.ReadToEndAsync();
+            int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
+            if (javaver >= 11)
+            {
+                return true;
+            }
+
+            throw new WrongJavaVersion(String.Format(Lang.Resources.WrongJavaVersionException, javaver));
+        }
+        catch (System.ComponentModel.Win32Exception e)
+        {
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = Lang.Resources.JavaNotFoundError + $" {e.Message}",
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new() { Name = "Ok" }
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Error
+            });
+            await box.ShowAsPopupAsync(this);
+            return false;
+        }
+        catch (WrongJavaVersion e)
+        {
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = String.Format(Lang.Resources.JavaWrongVersion,e.Message),
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new() { Name = Lang.Resources.Abort, IsCancel = true },
+                    new() { Name = Lang.Resources.Accept }
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Warning
+            });
+            var res = await box.ShowAsPopupAsync(this);
+            if (res == Lang.Resources.Abort)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        catch (Exception e)
+        {
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = Lang.Resources.JavaGenericError + $" {e.Message}",
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new() { Name = "Ok" },
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Warning
+            });
+            await box.ShowAsPopupAsync(this);
+            return false;
+        }
+    }
     private void CollectInfo()
     {
-
-
-        _compileConfig.TargetPlatform = (() =>
+        CompileConfig.MoSpeedPath = File.ReadAllText(ConfigFile);
+        CompileConfig.TargetPlatform = (() =>
         {
             switch (PlatformSelect.SelectionBoxItem.ToString())
             {
@@ -240,7 +328,7 @@ public partial class MainWindow : Window
                     return "c64";
             }
         });
-        _compileConfig.Vc20Conf = (() =>
+        CompileConfig.Vc20Conf = (() =>
         {
             switch (Vc20ConfBox.SelectedIndex)
             {
@@ -254,65 +342,64 @@ public partial class MainWindow : Window
                     return 8;
             }
         });
-        _compileConfig.C64Conf = (bool)C64ConfBox.IsChecked!;
+        CompileConfig.C64Conf = (bool)C64ConfBox.IsChecked!;
         if (PlatformSelect.SelectedIndex < 2)
         {
             Console.WriteLine("collecting mem info");
-            _compileConfig.ProgramStartAdd = ProgramStartAdd.Text;
-            _compileConfig.VariableStartAdd = VarsStartAdd.Text;
-            _compileConfig.StringMemEndAdd = StringMemEndAdd.Text;
-            _compileConfig.RuntimeStartAdd = RuntimeStartAdd.Text;
-            _compileConfig.MemHoles = GenerateMemHolesString();
-            Console.WriteLine(_compileConfig.MemHoles);
+            CompileConfig.ProgramStartAdd = ProgramStartAdd.Text;
+            CompileConfig.VariableStartAdd = VarsStartAdd.Text;
+            CompileConfig.StringMemEndAdd = StringMemEndAdd.Text;
+            CompileConfig.RuntimeStartAdd = RuntimeStartAdd.Text;
+            CompileConfig.MemHoles = GenerateMemHolesString();
+            Console.WriteLine(CompileConfig.MemHoles);
         }
         Console.WriteLine("collecting compile options");
-        _compileConfig.CompactLevel = CompressLvl.SelectedIndex;
+        CompileConfig.CompactLevel = CompressLvl.SelectedIndex;
         switch (SrcCdePrsc.SelectedIndex)
         {
             case 0:
-                _compileConfig.LowerSrc = "false";
-                _compileConfig.FlipSrcCase = "false";
+                CompileConfig.LowerSrc = "false";
+                CompileConfig.FlipSrcCase = "false";
                 break;
             case 1:
-                _compileConfig.LowerSrc = "true";
-                _compileConfig.FlipSrcCase = "false";
+                CompileConfig.LowerSrc = "true";
+                CompileConfig.FlipSrcCase = "false";
                 break;
             case 2:
-                _compileConfig.LowerSrc = "false";
-                _compileConfig.FlipSrcCase = "true";
+                CompileConfig.LowerSrc = "false";
+                CompileConfig.FlipSrcCase = "true";
                 break;
             default:
-                _compileConfig.LowerSrc = "false";
-                _compileConfig.FlipSrcCase = "false";
+                CompileConfig.LowerSrc = "false";
+                CompileConfig.FlipSrcCase = "false";
                 break;
         }
 
         if(LoopHandling.SelectedIndex == 0)
         {
-            _compileConfig.RemLoops = "true";
+            CompileConfig.RemLoops = "true";
         }
         else if(LoopHandling.SelectedIndex == 1)
         {
-            _compileConfig.RemLoops = "false";
+            CompileConfig.RemLoops = "false";
         }
         else
         {
-            _compileConfig.RemLoops = "false";
+            CompileConfig.RemLoops = "false";
         }
         if ((bool)LinkerOpt.IsChecked)
         {
-            _compileConfig.SplitOutput = "true";
+            CompileConfig.SplitOutput = "true";
         }
         else
         {
-            _compileConfig.SplitOutput = "false";
+            CompileConfig.SplitOutput = "false";
         }
     }
 
     private string GenerateMemHolesString()
     {
         int memholesCount = MemHoleGrid.Children.Count(x => x.GetType() == typeof(TextBlock));
-        Console.WriteLine(memholesCount);
         List<string> memholes = [];
         for (int i = 0; i <= memholesCount -1; i++)
         {
@@ -332,5 +419,17 @@ public partial class MainWindow : Window
     {
         SetupWindow setupWindow = new();
         setupWindow.ShowDialog(this);
+    }
+
+    private void AdvSettings_OnClick(object? sender, RoutedEventArgs e)
+    {
+        AdvancedSettings advSet = new();
+        advSet.ShowDialog(this);
+    }
+
+    private void AboutLink_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        AboutWindow aW = new();
+        aW.ShowDialog(this);
     }
 }

@@ -114,9 +114,6 @@
     <data name="CompressLvl3" xml:space="preserve">
         <value>Higher (slowest)</value>
     </data>
-    <data name="StartAdd" xml:space="preserve">
-        <value>Start address</value>
-    </data>
     <data name="EndAdd" xml:space="preserve">
         <value>End address</value>
     </data>
@@ -154,7 +151,7 @@
         <value>Compile!</value>
     </data>
     <data name="Advanced" xml:space="preserve">
-        <value>Advanced Settinngs</value>
+        <value>Advanced Settings</value>
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Welcome!</value>
@@ -212,5 +209,62 @@
     </data>
     <data name="CollectingInfo" xml:space="preserve">
         <value>Collecting compile info...</value>
+    </data>
+    <data name="JavaNotFoundError" xml:space="preserve">
+        <value>The 'java' executable could not be found or an error occured that prevented the access of java. See message:</value>
+    </data>
+    <data name="WrongJavaVersionException" xml:space="preserve">
+        <value>Java was found but your Java Version does not seem to be &gt;= 11. Extracted Java Version is {0}</value>
+    </data>
+    <data name="Accept" xml:space="preserve">
+        <value>Accept</value>
+    </data>
+    <data name="Abort" xml:space="preserve">
+        <value>Abort</value>
+    </data>
+    <data name="JavaGenericError" xml:space="preserve">
+        <value>Something went wrong while trying to check for java:</value>
+    </data>
+    <data name="JavaWrongVersion" xml:space="preserve">
+        <value>{0}. If you are sure, that you have Java 11 installed and is the default version when running 'java' press 'Accept'</value>
+    </data>
+    <data name="Compiling" xml:space="preserve">
+        <value>Compiling...</value>
+    </data>
+    <data name="UsingArguments" xml:space="preserve">
+        <value>Using Arguments: {0}</value>
+    </data>
+    <data name="SaveFilePickerTitle" xml:space="preserve">
+        <value>Select save location for {0} (Close dialog {1} more times to cancel)</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="AdvWelcome" xml:space="preserve">
+        <value>You may enter parameters here that aren't available in the GUI. Please note that the parameters you enter here will get appended after all the other parameters configured via the GUI. The parameters aren't filterd. Use at own risk.</value>
+    </data>
+    <data name="AdvWatermark" xml:space="preserve">
+        <value>/deploy=10.0.0.15</value>
+    </data>
+    <data name="Apply" xml:space="preserve">
+        <value>Apply</value>
+    </data>
+    <data name="OpenParameterWiki" xml:space="preserve">
+        <value>Open wiki for available Parameters</value>
+    </data>
+    <data name="WikiUrl" xml:space="preserve">
+        <value>https://www.c64-wiki.com/wiki/MOSpeed#Command_line_parameters</value>
+    </data>
+    <data name="About" xml:space="preserve">
+        <value>About</value>
+    </data>
+    <data name="LicenseNote" xml:space="preserve">
+        <value>This Application &amp; the GUI Framework (Avalonia) fall under the MIT-License. Review it below.</value>
+    </data>
+    <data name="OpenGit" xml:space="preserve">
+        <value>Open GitHub Repo</value>
+    </data>
+    <data name="ReportBug" xml:space="preserve">
+        <value>Report bug</value>
     </data>
 </root>

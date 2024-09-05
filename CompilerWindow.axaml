@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lang="clr-namespace:MoSpeedUI.Lang"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MoSpeedUI.CompilerWindow"
+        Title="{x:Static lang:Resources.Compiling}">
+    <Grid Margin="8" RowDefinitions="Auto, Auto, *, Auto" ColumnDefinitions="*">
+        <TextBlock Grid.Row="0" FontWeight="Medium" FontSize="24" Text="{x:Static lang:Resources.Compiling}"/>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto">
+            <TextBlock FontSize="16" LineHeight="36" x:Name="ArgumentList"/>
+        </ScrollViewer>
+        <Panel Grid.Row="2">
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" IsReadOnly="True" HorizontalAlignment="Stretch" x:Name="CompileOut"/>
+        </Panel>
+        <Button x:Name="ClsBtn" Grid.Row="3" Margin="0,8,0,0" IsEnabled="False" Click="Button_OnClick" Content="{x:Static lang:Resources.Close}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"/>
+    </Grid>
+</Window>

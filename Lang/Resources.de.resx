@@ -110,9 +110,6 @@
     <data name="EndAdd" xml:space="preserve">
         <value>Endadresse</value>
     </data>
-    <data name="StartAdd" xml:space="preserve">
-        <value>Startadresse</value>
-    </data>
     <data name="PSPlatformConfig" xml:space="preserve">
         <value>Für Powershell gibt es keine verfügbaren Einstellungen.</value>
     </data>
@@ -205,5 +202,62 @@
     </data>
     <data name="CollectingInfo" xml:space="preserve">
         <value>Kompiliereinstellungen sammeln...</value>
+    </data>
+    <data name="JavaNotFoundError" xml:space="preserve">
+        <value>Die 'java'-Exceutable konnte nicht gefunden werden oder es trat ein Fehler auf, beim Versiuch diese zu öffnen. Fehlermeldung:</value>
+    </data>
+    <data name="WrongJavaVersionException" xml:space="preserve">
+        <value>Java wurde gefunden, aber die Java-Version scheint nicht &gt;= 11 zu sein. Die extrahierte Java-Version lautet {0}</value>
+    </data>
+    <data name="Accept" xml:space="preserve">
+        <value>Akzeptieren</value>
+    </data>
+    <data name="Abort" xml:space="preserve">
+        <value>Abbrechen</value>
+    </data>
+    <data name="JavaGenericError" xml:space="preserve">
+        <value>Etwas ist bei dem Versuch auf Java zu überprüfen schiefgegangen:</value>
+    </data>
+    <data name="JavaWrongVersion" xml:space="preserve">
+        <value>{0}. Wenn du dir sicher bist, dass du Java 11 oder höher installiert hast und dies die Standardversion beim Aufruf des 'java'-Befehls ist, drücke 'Akzeptieren'.</value>
+    </data>
+    <data name="Compiling" xml:space="preserve">
+        <value>Kompilieren...</value>
+    </data>
+    <data name="UsingArguments" xml:space="preserve">
+        <value>Verwendete Argumente: {0}</value>
+    </data>
+    <data name="SaveFilePickerTitle" xml:space="preserve">
+        <value>Speicherort für {0} auswählen (Dialog noch {1} mal schließen zum abbrechen)</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Schließen</value>
+    </data>
+    <data name="AdvWelcome" xml:space="preserve">
+        <value>Hier kannst du Parameter konfigurieren, welche über das GUI nicht verfügbar sind. Bitte beachte, dass die Parameter die du hier eingibst einfach den anderen Parametern, welche über das GUI konfiguriert werden hinten angestellt werden. Es findet kein Filter o.ä. Anwendung.</value>
+    </data>
+    <data name="AdvWatermark" xml:space="preserve">
+        <value>/deploy=10.0.0.15</value>
+    </data>
+    <data name="Apply" xml:space="preserve">
+        <value>Anwenden</value>
+    </data>
+    <data name="OpenParameterWiki" xml:space="preserve">
+        <value>Wiki für verfügbare Parameter öffnen</value>
+    </data>
+    <data name="WikiUrl" xml:space="preserve">
+        <value>https://www.c64-wiki.de/wiki/MOSpeed#Kommandozeilenparameter</value>
+    </data>
+    <data name="About" xml:space="preserve">
+        <value>Über</value>
+    </data>
+    <data name="LicenseNote" xml:space="preserve">
+        <value>Dieses Programm &amp; das GUI-Framework fallen unter die MIT-Lizenz. Du kannst sie im Kasten hierunter sehen.</value>
+    </data>
+    <data name="OpenGit" xml:space="preserve">
+        <value>GitHub-Repository öffnen</value>
+    </data>
+    <data name="ReportBug" xml:space="preserve">
+        <value>Fehler melden</value>
     </data>
 </root>

@@ -3,7 +3,10 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="AboutWindow.axaml" value="MoSpeedUI.csproj" />
+        <entry key="AdvancedSettings.axaml" value="MoSpeedUI.csproj" />
         <entry key="App.axaml" value="MoSpeedUI.csproj" />
+        <entry key="CompilerWindow.axaml" value="MoSpeedUI.csproj" />
         <entry key="MainWindow.axaml" value="MoSpeedUI.csproj" />
         <entry key="SetupWindow.axaml" value="MoSpeedUI.csproj" />
       </map>

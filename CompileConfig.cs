@@ -6,8 +6,11 @@ namespace MoSpeedUI;
 
 public class CompileConfig
 {
+    public string MoSpeedPath { get; set; }
+    public IStorageFile? OutputFile { get; set; }
+    public IStorageFile? CurrentFile { get; set; }
     public List<IStorageFile> Files { get; set; } = new();
-    // /target=
+    // /platform=
     public Func<string>? TargetPlatform { get; set; }
     // /memconfig=
     public Func<int>? Vc20Conf { get; set; }
@@ -33,4 +36,6 @@ public class CompileConfig
     public string RemLoops { get; set; }
     // /multipart=
     public string SplitOutput { get; set; }
+    public string ArgumentList { get; set; }
+    public string ExtendedArguments { get; set; }
 }
