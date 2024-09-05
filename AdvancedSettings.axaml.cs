@@ -16,6 +16,8 @@ public partial class AdvancedSettings : Window
         {
             AdvBox.Text = MainWindow.CompileConfig.ExtendedArguments;
         }
+
+        this.Closing += ((sender, args) => { MainWindow.CompileConfig.ExtendedArguments = AdvBox?.Text!; });
     }
 
     private void Button_OnClick(object? s, RoutedEventArgs e)

@@ -230,14 +230,14 @@ public partial class MainWindow : Window
         {
             CompileConfig.CurrentFile = file;
             CompilerWindow cmpW = new();
-            cmpW.ShowDialog(this);
+            await cmpW.ShowDialog(this);
         }
         this.Cursor = new Cursor(StandardCursorType.Arrow);
         CompileBtn.Content = Lang.Resources.Compile;
         CompileBtn.IsEnabled = true;
     }
 
-    async private Task<bool> CheckForJava()
+    private async Task<bool> CheckForJava()
     {
         string stdout = "";
         Process process = new Process();

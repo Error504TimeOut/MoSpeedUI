@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http.Headers;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -36,12 +37,21 @@ public partial class CompilerWindow : Window
 
     private async void Compile()
     {
+        bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         Process mospeed = new();
         mospeed.StartInfo.WorkingDirectory = MainWindow.CompileConfig.MoSpeedPath;
         mospeed.StartInfo.FileName = "java";
         mospeed.StartInfo.UseShellExecute = false;
-        mospeed.StartInfo.Arguments =
-            $"-cp basicv2.jar:dist/basicv2.jar com.sixtyfour.cbmnative.shell.MoSpeedCL {MainWindow.CompileConfig.ArgumentList}";
+        if (isWindows)
+        {
+            mospeed.StartInfo.Arguments =
+                $"-cp basicv2.jar;dist/basicv2.jar com.sixtyfour.cbmnative.shell.MoSpeedCL {MainWindow.CompileConfig.ArgumentList}";
+        }
+        else
+        {
+            mospeed.StartInfo.Arguments =
+                $"-cp basicv2.jar:dist/basicv2.jar com.sixtyfour.cbmnative.shell.MoSpeedCL {MainWindow.CompileConfig.ArgumentList}";
+        }
         mospeed.StartInfo.RedirectStandardOutput = true;
         mospeed.EnableRaisingEvents = true;
         mospeed.OutputDataReceived += (s, e) => AppendText(e.Data);
@@ -67,6 +77,11 @@ public partial class CompilerWindow : Window
         IStorageFile? file = null;
         while (file == null)
         {
+            if (count == 0)
+            {
+                Close();
+                break;
+            }
             file = await this.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
             {
                 Title = String.Format(Lang.Resources.SaveFilePickerTitle, MainWindow.CompileConfig.CurrentFile.Name,
