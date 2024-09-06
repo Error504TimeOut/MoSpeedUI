@@ -542,5 +542,11 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("ReportBug", resourceCulture);
             }
         }
+        
+        public static string CompileCancel {
+            get {
+                return ResourceManager.GetString("CompileCancel", resourceCulture);
+            }
+        }
     }
 }

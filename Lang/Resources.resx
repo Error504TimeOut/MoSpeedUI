@@ -267,4 +267,7 @@
     <data name="ReportBug" xml:space="preserve">
         <value>Report bug</value>
     </data>
+    <data name="CompileCancel" xml:space="preserve">
+        <value>Compilation canceled</value>
+    </data>
 </root>

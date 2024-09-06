@@ -260,4 +260,7 @@
     <data name="ReportBug" xml:space="preserve">
         <value>Fehler melden</value>
     </data>
+    <data name="CompileCancel" xml:space="preserve">
+        <value>Kompilieren abgebrochen</value>
+    </data>
 </root>

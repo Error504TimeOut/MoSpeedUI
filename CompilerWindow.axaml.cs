@@ -21,6 +21,7 @@ public partial class CompilerWindow : Window
     public CompilerWindow()
     {
         InitializeComponent();
+        this.Closing += OnClosing;
         this.Width = 800;
         this.Height = 600;
         //CompileOut.Height = ClientSize.Height - 100;
@@ -31,7 +32,8 @@ public partial class CompilerWindow : Window
         IStorageFile? fileout = Task.Run(SelectOutput).GetAwaiter().GetResult();
         if (fileout == null)
         {
-            this.Close();
+            ArgumentList.Text = Lang.Resources.CompileCancel;
+            ClsBtn.IsEnabled = true;
             return;
         }
         MainWindow.CompileConfig.OutputFile = fileout;
@@ -39,6 +41,11 @@ public partial class CompilerWindow : Window
         ArgumentList.Text = String.Format(Lang.Resources.UsingArguments, MainWindow.CompileConfig.ArgumentList);
         Compile();
         MainWindow.CompileConfig.OutputFile = null;
+    }
+
+    private void OnClosing(object? sender, WindowClosingEventArgs e)
+    {
+        e.Cancel = true;
     }
 
     private async void Compile()
@@ -66,6 +73,7 @@ public partial class CompilerWindow : Window
         mospeed.BeginOutputReadLine();
         await mospeed.WaitForExitAsync();
         ClsBtn.IsEnabled = true;
+        this.Closing -= OnClosing;
     }
     private void AppendText(string? text)
     {
@@ -80,26 +88,22 @@ public partial class CompilerWindow : Window
     }
     private async Task<IStorageFile?> SelectOutput()
     {
-        int count = 1;
+        int count = 3;
         IStorageFile? file = null;
         while (file == null)
         {
-            if (count >= 4)
+            if (count <= 0)
             {
-                Dispatcher.UIThread.Post(() =>
-                {
-                    Close();
-                });
                 break;
             }
             file = await this.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
             {
                 Title = String.Format(Lang.Resources.SaveFilePickerTitle, MainWindow.CompileConfig.CurrentFile.Name,
-                    (4 - count)),
+                    count),
                 SuggestedFileName = $"++{MainWindow.CompileConfig.CurrentFile.Name}.prg",
                 DefaultExtension = "prg",
             });
-            count++;
+            count--;
         }
         return file;
     }
