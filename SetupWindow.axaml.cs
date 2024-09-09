@@ -64,7 +64,7 @@ public partial class SetupWindow : Window
             },
             Icon = MsBox.Avalonia.Enums.Icon.Success
         });
-        await File.WriteAllTextAsync(MainWindow.ConfigFile, PathBox.Text);
+        File.WriteAllText(MainWindow.ConfigFile, PathBox.Text);
         await box.ShowAsPopupAsync(this);
         this.Close();
         
@@ -163,7 +163,7 @@ public partial class SetupWindow : Window
                     },
                     Icon = MsBox.Avalonia.Enums.Icon.Success
                 });
-                await File.WriteAllTextAsync(MainWindow.ConfigFile, PathBox.Text);
+                File.WriteAllText(MainWindow.ConfigFile, PathBox.Text);
                 await box.ShowAsPopupAsync(this);
                 this.Close();
             }
