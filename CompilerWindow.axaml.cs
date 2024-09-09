@@ -33,6 +33,7 @@ public partial class CompilerWindow : Window
         if (fileout == null)
         {
             ArgumentList.Text = Lang.Resources.CompileCancel;
+            this.Closing -= OnClosing;
             ClsBtn.IsEnabled = true;
             return;
         }
