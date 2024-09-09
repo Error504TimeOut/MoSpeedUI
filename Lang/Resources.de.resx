@@ -263,4 +263,13 @@
     <data name="CompileCancel" xml:space="preserve">
         <value>Kompilieren abgebrochen</value>
     </data>
+    <data name="RestartSetup" xml:space="preserve">
+        <value>Setup neustarten (MoSpeed updaten)</value>
+    </data>
+    <data name="ConfirmReset" xml:space="preserve">
+        <value>Wenn du updatest, wird der Inhalt von '{0}' gelöscht. Danach wird der Setup-Dialog erscheinen und du kannst eine neue Setup-Option auswählen. Möchtest du fortfahren?</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Ja</value>
+    </data>
 </root>

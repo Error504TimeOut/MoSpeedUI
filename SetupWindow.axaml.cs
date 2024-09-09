@@ -21,28 +21,47 @@ namespace MoSpeedUI;
 
 public partial class SetupWindow : Window
 {
-    public SetupWindow()
+    public SetupWindow(bool restart = false)
     {
         InitializeComponent();
-        this.Width = 600;
-        this.Height = 300;
-        DwnldMsRBtn.IsCheckedChanged += ((sender, args) =>
+        if (restart)
         {
-            if (DwnldMsRBtn.IsChecked != null)
-                if ((bool)DwnldMsRBtn.IsChecked)
+            if (Directory.Exists(MainWindow.ConfigFolder))
+            {
+                DirectoryInfo di = new DirectoryInfo(MainWindow.ConfigFolder);
+                foreach (FileInfo file in di.GetFiles())
                 {
-                    Step2B.IsVisible = false;
-                    Step2A.IsVisible = true;
+                    file.Delete();
                 }
-                else
-                {
-                    Step2A.IsVisible = false;
-                    Step2B.IsVisible = true;
-                }
-        });
-        DwnldMsRBtn.IsChecked = true;
-    }
 
+                foreach (DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
+            }
+        }
+        Prepare();
+    }
+    public void Prepare()
+    {
+            this.Width = 600;
+            this.Height = 300;
+            DwnldMsRBtn.IsCheckedChanged += ((sender, args) =>
+            {
+                if (DwnldMsRBtn.IsChecked != null)
+                    if ((bool)DwnldMsRBtn.IsChecked)
+                    {
+                        Step2B.IsVisible = false;
+                        Step2A.IsVisible = true;
+                    }
+                    else
+                    {
+                        Step2A.IsVisible = false;
+                        Step2B.IsVisible = true;
+                    }
+            });
+            DwnldMsRBtn.IsChecked = true;
+    }
     async private void DwnldBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         DwnldBar.IsVisible = true;

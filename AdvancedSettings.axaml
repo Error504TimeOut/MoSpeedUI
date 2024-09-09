@@ -5,12 +5,13 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MoSpeedUI.AdvancedSettings"
         xmlns:lang="clr-namespace:MoSpeedUI.Lang"
-        Title="{x:Static lang:Resources.Compiling}">
+        Title="{x:Static lang:Resources.Advanced}">
     <StackPanel Margin="8">
         <TextBlock Text="{x:Static lang:Resources.Advanced}" FontSize="24" FontWeight="Medium"/>
         <TextBlock Text="{x:Static lang:Resources.AdvWelcome}" FontSize="16" TextWrapping="Wrap"/>
         <TextBox x:Name="AdvBox" Margin="0,8,0,0" Watermark="{x:Static lang:Resources.AdvWatermark}"/>
         <Button Margin="0,8,0,0" Content="{x:Static lang:Resources.Apply}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="Button_OnClick"/>
         <Button Margin="0,8,0,0" Content="{x:Static lang:Resources.OpenParameterWiki}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="WikiBtn_OnClick"/>
+        <Button Margin="0,4,0,0" Content="{x:Static lang:Resources.RestartSetup}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="UpdateBtn_OnClick"/>
     </StackPanel>
 </Window>

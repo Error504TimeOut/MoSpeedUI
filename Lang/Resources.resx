@@ -270,4 +270,13 @@
     <data name="CompileCancel" xml:space="preserve">
         <value>Compilation canceled</value>
     </data>
+    <data name="RestartSetup" xml:space="preserve">
+        <value>Restart Setup (Update MoSpeed)</value>
+    </data>
+    <data name="ConfirmReset" xml:space="preserve">
+        <value>By updating, everything in '{0}' will be deleted if you choose to continue. The setup dialog will appear and you can choose a setup option again. Do you want to continue?</value>
+    </data>
+    <data name="Yes" xml:space="preserve">
+        <value>Yes</value>
+    </data>
 </root>

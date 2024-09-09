@@ -548,5 +548,23 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("CompileCancel", resourceCulture);
             }
         }
+        
+        public static string RestartSetup {
+            get {
+                return ResourceManager.GetString("RestartSetup", resourceCulture);
+            }
+        }
+        
+        public static string ConfirmReset {
+            get {
+                return ResourceManager.GetString("ConfirmReset", resourceCulture);
+            }
+        }
+        
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
     }
 }
