@@ -205,7 +205,6 @@ public partial class MainWindow : Window
         if (!Directory.Exists(ConfigFolder))
         {
             Directory.CreateDirectory(ConfigFolder);
-            File.Create(ConfigFile);
             SetupRoutine();
             return;
         }
