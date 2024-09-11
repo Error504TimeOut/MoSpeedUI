@@ -223,10 +223,10 @@
         <value>Abort</value>
     </data>
     <data name="JavaGenericError" xml:space="preserve">
-        <value>Something went wrong while trying to check for java:</value>
+        <value>Something went wrong while trying to check for Java: {0}. However, as Java was found, you can choose to ignore this error and override this check. Every Error concerning checking for Java will be ignored that way. Only do this if you are sure that you have a Java Version greater/equal to 11.</value>
     </data>
     <data name="JavaWrongVersion" xml:space="preserve">
-        <value>{0}. If you are sure, that you have Java 11 installed and is the default version when running 'java' press 'Accept'</value>
+        <value>{0}. If you are sure, that you have Java 11 installed and is the default version when running 'java' press 'Accept'. To ignore this in the future, press 'Ignore'</value>
     </data>
     <data name="Compiling" xml:space="preserve">
         <value>Compiling...</value>
@@ -278,5 +278,17 @@
     </data>
     <data name="Yes" xml:space="preserve">
         <value>Yes</value>
+    </data>
+    <data name="ConfigReadError" xml:space="preserve">
+        <value>There has been an error reading the config file. Once you close this pop-up, everything in {0} will be deleted and the Setup will reappear.</value>
+    </data>
+    <data name="Ignore" xml:space="preserve">
+        <value>Ignore</value>
+    </data>
+    <data name="NoFiles" xml:space="preserve">
+        <value>No files to compile :(</value>
+    </data>
+    <data name="CompileJavaError" xml:space="preserve">
+        <value>Oh no, an error has occured :(</value>
     </data>
 </root>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
@@ -30,9 +31,10 @@ public partial class MainWindow : Window
         MimeTypes = new[] { "text/*" }
     };
 
-    public static readonly string ConfigFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI");
-    public static readonly string ConfigFile = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI","path");
+    public static readonly string ConfigFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI.config");
+    public static readonly string ConfigFile = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI.config","config.xml");
     public static readonly CompileConfig CompileConfig = new();
+    public static Configuration AppConfiguration = new();
     
     public MainWindow()
     {
@@ -50,6 +52,42 @@ public partial class MainWindow : Window
             MoSpeedLogo.MaxWidth = (int)(this.Width / 3);
             ControlPanel.MaxWidth = (int)(e.ClientSize.Width * 0.75);
             ControlPanel.Width = ControlPanel.MaxWidth;
+        };
+        this.Opened += (sender, args) =>
+        {
+            if (!Directory.Exists(ConfigFolder))
+            {
+                Directory.CreateDirectory(ConfigFolder);
+                SetupRoutine(true);
+            }
+            else if (!File.Exists(ConfigFile))
+            {
+                SetupRoutine(true);
+            }
+            else
+            {
+                try
+                {
+                    XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+                    StreamReader r = new StreamReader(ConfigFile);
+                    AppConfiguration = (Configuration)ser.Deserialize(r)!;
+                    r.Close();
+                }
+                catch
+                {
+                    var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                    {
+                        ContentMessage = Lang.Resources.ConfigReadError,
+                        ButtonDefinitions = new List<ButtonDefinition>
+                        {
+                            new ButtonDefinition { Name = "Ok" }
+                        },
+                        Icon = MsBox.Avalonia.Enums.Icon.Success
+                    });
+                    box.ShowAsPopupAsync(this);
+                    SetupRoutine(true);
+                }
+            }
         };
         DragBox.Cursor = new Cursor(StandardCursorType.Hand);
         DragDrop.SetAllowDrop(this, true);
@@ -224,6 +262,22 @@ public partial class MainWindow : Window
             Console.WriteLine("Java found.");
             CollectInfo();
         }
+
+        if (CompileConfig.Files.Count == 0)
+        {
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = String.Format(Lang.Resources.NoFiles),
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new() { Name = "Ok"},
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Warning
+            });
+            CompileBtn.Content = Lang.Resources.Compile;
+            await box.ShowAsPopupAsync(this);
+            return;
+        }
         CompileBtn.Content = Lang.Resources.Compiling;
         foreach (var file in CompileConfig.Files)
         {
@@ -238,6 +292,10 @@ public partial class MainWindow : Window
 
     private async Task<bool> CheckForJava()
     {
+        if (AppConfiguration.SkipJavaCheck)
+        {
+            return true;
+        }
         string stdout = "";
         Process process = new Process();
         process.StartInfo.FileName = "java";
@@ -250,6 +308,7 @@ public partial class MainWindow : Window
             await process.WaitForExitAsync();
             stdout = await process.StandardError.ReadToEndAsync();
             int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
+            process.Dispose();
             if (javaver >= 11)
             {
                 return true;
@@ -278,6 +337,7 @@ public partial class MainWindow : Window
                 ContentMessage = String.Format(Lang.Resources.JavaWrongVersion,e.Message),
                 ButtonDefinitions = new List<ButtonDefinition>
                 {
+                    new() { Name = Lang.Resources.Ignore},
                     new() { Name = Lang.Resources.Abort, IsCancel = true },
                     new() { Name = Lang.Resources.Accept }
                 },
@@ -288,27 +348,38 @@ public partial class MainWindow : Window
             {
                 return false;
             }
-
+            if (res == Lang.Resources.Ignore)
+            {
+                AppConfiguration.SkipJavaCheck = true;
+                SetupWindow.RegenerateConfig(AppConfiguration);
+                return true;
+            }
             return true;
         }
         catch (Exception e)
         {
             var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
             {
-                ContentMessage = Lang.Resources.JavaGenericError + $" {e.Message}",
+                ContentMessage = String.Format(Lang.Resources.JavaGenericError,e.Message),
                 ButtonDefinitions = new List<ButtonDefinition>
                 {
                     new() { Name = "Ok" },
+                    new() { Name = Lang.Resources.Ignore }
                 },
                 Icon = MsBox.Avalonia.Enums.Icon.Warning
             });
-            await box.ShowAsPopupAsync(this);
+            var res = await box.ShowAsPopupAsync(this);
+            if (res == Lang.Resources.Ignore)
+            {
+                AppConfiguration.SkipJavaCheck = true;
+                SetupWindow.RegenerateConfig(AppConfiguration);
+                return true;
+            }
             return false;
         }
     }
     private void CollectInfo()
-    {
-        CompileConfig.MoSpeedPath = File.ReadAllText(ConfigFile);
+    { 
         CompileConfig.TargetPlatform = (() =>
         {
             switch (PlatformSelect.SelectionBoxItem.ToString())
@@ -414,9 +485,9 @@ public partial class MainWindow : Window
         }
         return String.Join(",",memholes);
     }
-    private void SetupRoutine()
+    private void SetupRoutine(bool restart = false)
     {
-        SetupWindow setupWindow = new();
+        SetupWindow setupWindow = new(restart);
         setupWindow.ShowDialog(this);
     }
 

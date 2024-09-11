@@ -216,10 +216,10 @@
         <value>Abbrechen</value>
     </data>
     <data name="JavaGenericError" xml:space="preserve">
-        <value>Etwas ist bei dem Versuch auf Java zu überprüfen schiefgegangen:</value>
+        <value>Etwas ist bei dem Versuch auf Java zu überprüfen schiefgegangen: {0}. Jedoch, da Java ja gefunden wurde, kannst du diesen Fehler Ignorieren und überschreiben. Jegliche Fehler im Zusammenhang mit dem überprüfen auf Java werden dann ignoriert. Mache dies nur, wenn du dir sicher bist, dass du mindestens Java 11 hast.</value>
     </data>
     <data name="JavaWrongVersion" xml:space="preserve">
-        <value>{0}. Wenn du dir sicher bist, dass du Java 11 oder höher installiert hast und dies die Standardversion beim Aufruf des 'java'-Befehls ist, drücke 'Akzeptieren'.</value>
+        <value>{0}. Wenn du dir sicher bist, dass du Java 11 oder höher installiert hast und dies die Standardversion beim Aufruf des 'java'-Befehls ist, drücke 'Akzeptieren'. Drücke 'Ignorieren', wenn dies in Zukunft nicht beachtet werden soll.</value>
     </data>
     <data name="Compiling" xml:space="preserve">
         <value>Kompilieren...</value>
@@ -271,5 +271,17 @@
     </data>
     <data name="Yes" xml:space="preserve">
         <value>Ja</value>
+    </data>
+    <data name="ConfigReadError" xml:space="preserve">
+        <value>Es gab einen Fehler beim lesen der Konfigurationsdatei. SObald du dieses Pop-Up schließt, wird alles in {0} gelöscht und der Einrichtungsdialog wird erscheinen.</value>
+    </data>
+    <data name="Ignore" xml:space="preserve">
+        <value>Ignorieren</value>
+    </data>
+    <data name="NoFiles" xml:space="preserve">
+        <value>Keine Dateien um den Kompiler zu füttern :(</value>
+    </data>
+    <data name="CompileJavaError" xml:space="preserve">
+        <value>Oh nein, ein Fehler ist aufgetreten :(</value>
     </data>
 </root>

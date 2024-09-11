@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -42,25 +44,53 @@ public partial class SetupWindow : Window
         }
         Prepare();
     }
+    
+    public static void RegenerateConfig(Configuration config)
+    {
+        XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+        StreamWriter w = new StreamWriter(MainWindow.ConfigFile);
+        ser.Serialize(w,config);
+        w.Close();
+    }
+    public void GenerateConfig()
+    {
+        Configuration config = new Configuration();
+        XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+        if (File.Exists(MainWindow.ConfigFile))
+        {
+            StreamReader r = new StreamReader(MainWindow.ConfigFile);
+            config = (Configuration)ser.Deserialize(r)!;
+            r.Close();
+        }
+        config.MoSpeedPath = PathBox.Text!;
+        config.SkipJavaCheck = false;
+        StreamWriter w = new StreamWriter(MainWindow.ConfigFile);
+        ser.Serialize(w,config);
+        w.Close();
+    }
     public void Prepare()
     {
-            this.Width = 600;
-            this.Height = 300;
-            DwnldMsRBtn.IsCheckedChanged += ((sender, args) =>
-            {
-                if (DwnldMsRBtn.IsChecked != null)
-                    if ((bool)DwnldMsRBtn.IsChecked)
-                    {
-                        Step2B.IsVisible = false;
-                        Step2A.IsVisible = true;
-                    }
-                    else
-                    {
-                        Step2A.IsVisible = false;
-                        Step2B.IsVisible = true;
-                    }
-            });
-            DwnldMsRBtn.IsChecked = true;
+        this.Closing += (sender, args) =>
+        {
+            GenerateConfig();
+        };
+        this.Width = 600;
+        this.Height = 300;
+        DwnldMsRBtn.IsCheckedChanged += ((sender, args) =>
+        {
+            if (DwnldMsRBtn.IsChecked != null)
+                if ((bool)DwnldMsRBtn.IsChecked)
+                {
+                    Step2B.IsVisible = false;
+                    Step2A.IsVisible = true;
+                }
+                else
+                {
+                    Step2A.IsVisible = false;
+                    Step2B.IsVisible = true;
+                }
+        });
+        DwnldMsRBtn.IsChecked = true;
     }
     async private void DwnldBtn_OnClick(object? sender, RoutedEventArgs e)
     {
@@ -81,12 +111,10 @@ public partial class SetupWindow : Window
             {
                 new ButtonDefinition { Name = "Ok" }
             },
-            Icon = MsBox.Avalonia.Enums.Icon.Success
+            Icon = MsBox.Avalonia.Enums.Icon.Success,
         });
-        File.WriteAllText(MainWindow.ConfigFile, PathBox.Text);
         await box.ShowAsPopupAsync(this);
         this.Close();
-        
     }
     async private Task DownloadAsyncWithProgress(string url, string outputPath, ProgressBar progress)
     {
@@ -182,7 +210,6 @@ public partial class SetupWindow : Window
                     },
                     Icon = MsBox.Avalonia.Enums.Icon.Success
                 });
-                File.WriteAllText(MainWindow.ConfigFile, PathBox.Text);
                 await box.ShowAsPopupAsync(this);
                 this.Close();
             }

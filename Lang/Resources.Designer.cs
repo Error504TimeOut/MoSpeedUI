@@ -566,5 +566,29 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
+        
+        public static string ConfigReadError {
+            get {
+                return ResourceManager.GetString("ConfigReadError", resourceCulture);
+            }
+        }
+        
+        public static string Ignore {
+            get {
+                return ResourceManager.GetString("Ignore", resourceCulture);
+            }
+        }
+        
+        public static string NoFiles {
+            get {
+                return ResourceManager.GetString("NoFiles", resourceCulture);
+            }
+        }
+        
+        public static string CompileJavaError {
+            get {
+                return ResourceManager.GetString("CompileJavaError", resourceCulture);
+            }
+        }
     }
 }

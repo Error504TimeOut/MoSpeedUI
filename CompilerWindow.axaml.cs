@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -18,10 +19,10 @@ namespace MoSpeedUI;
 
 public partial class CompilerWindow : Window
 {
+    private CancellationTokenSource _cancelT = new CancellationTokenSource();
     public CompilerWindow()
     {
         InitializeComponent();
-        this.Closing += OnClosing;
         this.Width = 800;
         this.Height = 600;
         //CompileOut.Height = ClientSize.Height - 100;
@@ -33,27 +34,23 @@ public partial class CompilerWindow : Window
         if (fileout == null)
         {
             ArgumentList.Text = Lang.Resources.CompileCancel;
-            this.Closing -= OnClosing;
             ClsBtn.IsEnabled = true;
             return;
         }
+        ClsBtn.Content = Lang.Resources.Abort;
         MainWindow.CompileConfig.OutputFile = fileout;
         MainWindow.CompileConfig.ArgumentList = BuildArguments();
         ArgumentList.Text = String.Format(Lang.Resources.UsingArguments, MainWindow.CompileConfig.ArgumentList);
-        Compile();
+        Compile(_cancelT.Token);
         MainWindow.CompileConfig.OutputFile = null;
+        ClsBtn.Content = Lang.Resources.Close;
     }
-
-    private void OnClosing(object? sender, WindowClosingEventArgs e)
-    {
-        e.Cancel = true;
-    }
-
-    private async void Compile()
+    
+    private async void Compile(CancellationToken token)
     {
         bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         Process mospeed = new();
-        mospeed.StartInfo.WorkingDirectory = MainWindow.CompileConfig.MoSpeedPath;
+        mospeed.StartInfo.WorkingDirectory = MainWindow.AppConfiguration.MoSpeedPath;
         mospeed.StartInfo.FileName = "java";
         mospeed.StartInfo.UseShellExecute = false;
         mospeed.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
@@ -70,11 +67,17 @@ public partial class CompilerWindow : Window
         mospeed.StartInfo.RedirectStandardOutput = true;
         mospeed.EnableRaisingEvents = true;
         mospeed.OutputDataReceived += (s, e) => AppendText(e.Data);
-        mospeed.Start();
-        mospeed.BeginOutputReadLine();
-        await mospeed.WaitForExitAsync();
-        ClsBtn.IsEnabled = true;
-        this.Closing -= OnClosing;
+        try
+        {
+            mospeed.Start();
+            mospeed.BeginOutputReadLine();
+            await mospeed.WaitForExitAsync(token);
+            ClsBtn.IsEnabled = true;
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
     }
     private void AppendText(string? text)
     {
@@ -124,6 +127,7 @@ public partial class CompilerWindow : Window
 
     private void Button_OnClick(object? sender, RoutedEventArgs e)
     {
+        _cancelT.Cancel();
         this.Close();
     }
 }

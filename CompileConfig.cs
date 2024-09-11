@@ -5,8 +5,7 @@ using Avalonia.Platform.Storage;
 namespace MoSpeedUI;
 
 public class CompileConfig
-{
-    public string MoSpeedPath { get; set; }
+{ 
     public IStorageFile? OutputFile { get; set; }
     public IStorageFile? CurrentFile { get; set; }
     public List<IStorageFile> Files { get; set; } = new();
