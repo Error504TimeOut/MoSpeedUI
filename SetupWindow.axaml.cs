@@ -198,35 +198,36 @@ public partial class SetupWindow : Window
                     List<string> javas = stdout.Split(Environment.NewLine.ToCharArray()).ToList();
                     foreach (var java in javas)
                     {
+                        string javaq = $"\"{java}\"";
                         Process jcheck = new Process();
-                        jcheck.StartInfo.FileName = java;
+                        jcheck.StartInfo.FileName = javaq;
                         jcheck.StartInfo.Arguments = "-fullversion";
                         jcheck.StartInfo.UseShellExecute = false;
                         jcheck.StartInfo.RedirectStandardError = true;
                         jcheck.Start();
                         await jcheck.WaitForExitAsync();
                         stdout = await process.StandardError.ReadToEndAsync();
-                        File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-java.txt"),java+" returned: "+stdout);
+                        File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-java.txt"),javaq+" returned: "+stdout);
                         int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
                         jcheck.Dispose();
                         if (javaver >= 11)
                         {
                             ParentPanel.IsEnabled = true;
-                            _config.JavaPath = java;
+                            _config.JavaPath = javaq;
                             break;
                         }
-                        var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
-                        {
-                            ContentMessage = Lang.Resources.JavaFoundWrongVerWin + $" ({MainWindow.ConfigFile}), (Java-Execs: {string.Join(",",javas)})",
-                            ButtonDefinitions = new List<ButtonDefinition>
-                            {
-                                new() {Name = "Ok"},
-                            },
-                            Icon = MsBox.Avalonia.Enums.Icon.Error
-                        });
-                        await box.ShowAsPopupAsync(this);
-                        ParentPanel.IsEnabled = false;
                     }
+                    var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                    {
+                        ContentMessage = Lang.Resources.JavaFoundWrongVerWin + $" ({MainWindow.ConfigFile}), (Java-Execs: {string.Join(",",javas)})",
+                        ButtonDefinitions = new List<ButtonDefinition>
+                        {
+                            new() {Name = "Ok"},
+                        },
+                        Icon = MsBox.Avalonia.Enums.Icon.Error
+                    });
+                    await box.ShowAsPopupAsync(this);
+                    ParentPanel.IsEnabled = false;
                 }
                 catch (Exception ex)
                 {
