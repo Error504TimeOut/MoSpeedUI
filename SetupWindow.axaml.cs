@@ -94,6 +94,8 @@ public partial class SetupWindow : Window
         });
         DwnldMsRBtn.IsChecked = true;
         FindJava();
+        DwnldBar.IsIndeterminate = false;
+        DwnldBar.IsVisible = false;
     }
 
     private async void FindJava()
@@ -102,6 +104,7 @@ public partial class SetupWindow : Window
         DwnldBar.IsVisible = true;
         DwnldBar.ShowProgressText = true;
         DwnldBar.ProgressTextFormat = Lang.Resources.FindingJava;
+        DwnldBar.IsIndeterminate = true;
         bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         if (!isWindows)
         {
@@ -126,6 +129,7 @@ public partial class SetupWindow : Window
                 process.Dispose();
                 if (javaver >= 11)
                 {
+                    ParentPanel.IsEnabled = true;
                     _config.JavaPath = "java";
                     return;
                 }
@@ -194,7 +198,7 @@ public partial class SetupWindow : Window
                     process.Start();
                     await process.WaitForExitAsync();
                     stdout = await process.StandardOutput.ReadToEndAsync();
-                    File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-where.txt"), stdout);
+                    //File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-where.txt"), stdout);
                     List<string> javas = stdout.Split(Environment.NewLine.ToCharArray()).ToList();
                     foreach (var java in javas)
                     {
@@ -206,15 +210,15 @@ public partial class SetupWindow : Window
                         jcheck.StartInfo.RedirectStandardError = true;
                         jcheck.Start();
                         await jcheck.WaitForExitAsync();
-                        stdout = await process.StandardError.ReadToEndAsync();
-                        File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-java.txt"),javaq+" returned: "+stdout);
+                        stdout = await jcheck.StandardError.ReadToEndAsync();
+                        //File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-java.txt"),javaq+" returned: "+stdout);
                         int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
                         jcheck.Dispose();
                         if (javaver >= 11)
                         {
                             ParentPanel.IsEnabled = true;
                             _config.JavaPath = javaq;
-                            break;
+                            return;
                         }
                     }
                     var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
