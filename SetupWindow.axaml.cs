@@ -127,8 +127,8 @@ public partial class SetupWindow : Window
                 if (javaver >= 11)
                 {
                     _config.JavaPath = "java";
+                    return;
                 }
-
                 throw new WrongJavaVersion(String.Format(Lang.Resources.WrongJavaVersionException, javaver));
             }
             catch (System.ComponentModel.Win32Exception e)
@@ -194,6 +194,7 @@ public partial class SetupWindow : Window
                     process.Start();
                     await process.WaitForExitAsync();
                     stdout = await process.StandardOutput.ReadToEndAsync();
+                    File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-where.txt"), stdout);
                     List<string> javas = stdout.Split(Environment.NewLine.ToCharArray()).ToList();
                     foreach (var java in javas)
                     {
@@ -205,11 +206,12 @@ public partial class SetupWindow : Window
                         jcheck.Start();
                         await jcheck.WaitForExitAsync();
                         stdout = await process.StandardError.ReadToEndAsync();
+                        File.WriteAllText(Path.Join(MainWindow.ConfigFolder,new Guid().ToString()+"stdout-java.txt"),java+" returned: "+stdout);
                         int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
                         jcheck.Dispose();
                         if (javaver >= 11)
                         {
-                            ParentPanel.IsEnabled = false;
+                            ParentPanel.IsEnabled = true;
                             _config.JavaPath = java;
                             break;
                         }
