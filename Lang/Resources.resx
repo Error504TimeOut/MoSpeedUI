@@ -223,10 +223,10 @@
         <value>Abort</value>
     </data>
     <data name="JavaGenericError" xml:space="preserve">
-        <value>Something went wrong while trying to check for Java: {0}. However, as Java was found, you can choose to ignore this error and override this check. Every Error concerning checking for Java will be ignored that way. Only do this if you are sure that you have a Java Version greater/equal to 11.</value>
+        <value>Something went wrong while trying to check for Java: {0}. However, as Java was found, you can choose to ignore this error and override this check. Every Error concerning checking for Java will be ignored that way. Only do this if you are sure that you have a Java Version greater/equal to 11. (stderr was {1})</value>
     </data>
     <data name="JavaWrongVersion" xml:space="preserve">
-        <value>{0}. If you are sure, that you have Java 11 installed and is the default version when running 'java' press 'Accept'. To ignore this in the future, press 'Ignore'</value>
+        <value>{0}. If you are sure, that you have Java 11 installed and is the default version when running 'java' press 'Accept'. (Output was: {1})</value>
     </data>
     <data name="Compiling" xml:space="preserve">
         <value>Compiling...</value>
@@ -259,7 +259,7 @@
         <value>About</value>
     </data>
     <data name="LicenseNote" xml:space="preserve">
-        <value>This Application &amp; the GUI Framework (Avalonia) fall under the MIT-License. Review it below.</value>
+        <value>This Application &amp; the GUI Framework (Avalonia) fall under the MIT-License. Additional Licenses are also noted here. Review it below.</value>
     </data>
     <data name="OpenGit" xml:space="preserve">
         <value>Open GitHub Repo</value>
@@ -290,5 +290,14 @@
     </data>
     <data name="CompileJavaError" xml:space="preserve">
         <value>Oh no, an error has occured :(</value>
+    </data>
+    <data name="FindingJava" xml:space="preserve">
+        <value>Finding Java...</value>
+    </data>
+    <data name="WindowsJavaPanic" xml:space="preserve">
+        <value>Something is very wrong. There are no fallbacks left. It seems like you have to create the config yourself. A template can be found in the wiki in the GitHub-Repo. Sorry :( (Output was: {0}, Error is {1})</value>
+    </data>
+    <data name="JavaFoundWrongVerWin" xml:space="preserve">
+        <value>While there were java installations found, they don't quite seem to fit the needed version (&gt;= 11). The Configuration will call 'java' and use the java executable that the system provides under this name. This will likely fail. Please change the &lt;javapath&gt; parameter in the config file to a suitable java installation.</value>
     </data>
 </root>

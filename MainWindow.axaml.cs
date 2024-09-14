@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Avalonia;
@@ -72,6 +74,12 @@ public partial class MainWindow : Window
                     StreamReader r = new StreamReader(ConfigFile);
                     AppConfiguration = (Configuration)ser.Deserialize(r)!;
                     r.Close();
+                    foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(AppConfiguration))
+                    {
+                        string name = descriptor.Name;
+                        object value = descriptor.GetValue(AppConfiguration);
+                        Console.WriteLine("{0}={1}", name, value);
+                    }
                 }
                 catch
                 {
@@ -257,11 +265,12 @@ public partial class MainWindow : Window
         CompileBtn.Content = Lang.Resources.CollectingInfo;
         CompileBtn.IsEnabled = false;
         this.Cursor = new Cursor(StandardCursorType.Wait);
-        if (await CheckForJava())
+        CollectInfo();
+        /*if (await CheckForJava())
         {
             Console.WriteLine("Java found.");
             CollectInfo();
-        }
+        }*/
 
         if (CompileConfig.Files.Count == 0)
         {
@@ -290,7 +299,7 @@ public partial class MainWindow : Window
         CompileBtn.IsEnabled = true;
     }
 
-    private async Task<bool> CheckForJava()
+    /*private async Task<bool> CheckForJava()
     {
         if (AppConfiguration.SkipJavaCheck)
         {
@@ -360,7 +369,7 @@ public partial class MainWindow : Window
         {
             var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
             {
-                ContentMessage = String.Format(Lang.Resources.JavaGenericError,e.Message),
+                ContentMessage = String.Format(Lang.Resources.JavaGenericError,e.Message,stdout),
                 ButtonDefinitions = new List<ButtonDefinition>
                 {
                     new() { Name = "Ok" },
@@ -377,7 +386,7 @@ public partial class MainWindow : Window
             }
             return false;
         }
-    }
+    }*/
     private void CollectInfo()
     { 
         CompileConfig.TargetPlatform = (() =>

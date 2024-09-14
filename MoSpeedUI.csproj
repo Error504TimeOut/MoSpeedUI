@@ -35,15 +35,28 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\Images\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Assets\Images\mospeed.png" />
       <AvaloniaResource Include="Assets\Images\mospeed.png" />
       <None Remove="Assets\Images\mospeed.svg" />
       <AvaloniaResource Include="Assets\Images\mospeed.svg" />
       <None Remove="Assets\Text\LicenseText.txt" />
       <AvaloniaResource Include="Assets\Text\LicenseText.txt" />
+      <None Remove="Assets\Fonts\SUSE-VariableFont_wght.ttf" />
+      <None Remove="Assets\Fonts\SUSE-Bold.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-Bold.ttf" />
+      <None Remove="Assets\Fonts\SUSE-ExtraBold.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-ExtraBold.ttf" />
+      <None Remove="Assets\Fonts\SUSE-ExtraLight.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-ExtraLight.ttf" />
+      <None Remove="Assets\Fonts\SUSE-Light.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-Light.ttf" />
+      <None Remove="Assets\Fonts\SUSE-Medium.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-Medium.ttf" />
+      <None Remove="Assets\Fonts\SUSE-Regular.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-Regular.ttf" />
+      <None Remove="Assets\Fonts\SUSE-SemiBold.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-SemiBold.ttf" />
+      <None Remove="Assets\Fonts\SUSE-Thin.ttf" />
+      <AvaloniaResource Include="Assets\Fonts\SUSE-Thin.ttf" />
     </ItemGroup>
 </Project>

@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Resources;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -23,6 +26,7 @@ namespace MoSpeedUI;
 
 public partial class SetupWindow : Window
 {
+    private Configuration _config = new Configuration();
     public SetupWindow(bool restart = false)
     {
         InitializeComponent();
@@ -54,18 +58,16 @@ public partial class SetupWindow : Window
     }
     public void GenerateConfig()
     {
-        Configuration config = new Configuration();
         XmlSerializer ser = new XmlSerializer(typeof(Configuration));
         if (File.Exists(MainWindow.ConfigFile))
         {
             StreamReader r = new StreamReader(MainWindow.ConfigFile);
-            config = (Configuration)ser.Deserialize(r)!;
+            _config = (Configuration)ser.Deserialize(r)!;
             r.Close();
         }
-        config.MoSpeedPath = PathBox.Text!;
-        config.SkipJavaCheck = false;
+        _config.MoSpeedPath = PathBox.Text!;
         StreamWriter w = new StreamWriter(MainWindow.ConfigFile);
-        ser.Serialize(w,config);
+        ser.Serialize(w,_config);
         w.Close();
     }
     public void Prepare()
@@ -91,9 +93,159 @@ public partial class SetupWindow : Window
                 }
         });
         DwnldMsRBtn.IsChecked = true;
+        FindJava();
+    }
+
+    private async void FindJava()
+    {
+        ParentPanel.IsEnabled = false;
+        DwnldBar.IsVisible = true;
+        DwnldBar.ShowProgressText = true;
+        DwnldBar.ProgressTextFormat = Lang.Resources.FindingJava;
+        bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        if (!isWindows)
+        {
+            _config.JavaPath = "java";
+            ParentPanel.IsEnabled = true;
+            DwnldBar.IsVisible = false;
+        }
+        else
+        { 
+            string stdout = "";
+            Process process = new Process();
+            process.StartInfo.FileName = "java";
+            process.StartInfo.Arguments = "-fullversion";
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardError = true;
+            try
+            {
+                process.Start();
+                await process.WaitForExitAsync();
+                stdout = await process.StandardError.ReadToEndAsync();
+                int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
+                process.Dispose();
+                if (javaver >= 11)
+                {
+                    _config.JavaPath = "java";
+                }
+
+                throw new WrongJavaVersion(String.Format(Lang.Resources.WrongJavaVersionException, javaver));
+            }
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                {
+                    ContentMessage = Lang.Resources.JavaNotFoundError + $" {e.Message}",
+                    ButtonDefinitions = new List<ButtonDefinition>
+                    {
+                        new() { Name = "Ok" }
+                    },
+                    Icon = MsBox.Avalonia.Enums.Icon.Error
+                });
+                await box.ShowAsPopupAsync(this);
+                return;
+            }
+            catch (WrongJavaVersion e)
+            {
+                var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                {
+                    ContentMessage = String.Format(Lang.Resources.JavaWrongVersion,e.Message,stdout),
+                    ButtonDefinitions = new List<ButtonDefinition>
+                    {
+                        new() { Name = Lang.Resources.Abort, IsCancel = true },
+                        new() { Name = Lang.Resources.Accept }
+                    },
+                    Icon = MsBox.Avalonia.Enums.Icon.Warning
+                });
+                var res = await box.ShowAsPopupAsync(this);
+                if (res == Lang.Resources.Abort)
+                {
+                    return;
+                }
+                _config.JavaPath = "java";
+                ParentPanel.IsEnabled = true;
+            }
+            catch (Exception e)
+            {
+                /*var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                {
+                    ContentMessage = String.Format(Lang.Resources.JavaGenericError,e.Message,stdout),
+                    ButtonDefinitions = new List<ButtonDefinition>
+                    {
+                        new() { Name = "Ok" },
+                        new() { Name = Lang.Resources.Ignore }
+                    },
+                    Icon = MsBox.Avalonia.Enums.Icon.Warning
+                });
+                var res = await box.ShowAsPopupAsync(this);
+                if (res == Lang.Resources.Ignore)
+                {
+                    AppConfiguration.SkipJavaCheck = true;
+                    SetupWindow.RegenerateConfig(AppConfiguration);
+                    return true;
+                }
+                return false;*/
+                process.StartInfo.FileName = "where";
+                process.StartInfo.Arguments = "java.exe";
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.RedirectStandardOutput = true;
+                try
+                {
+                    process.Start();
+                    await process.WaitForExitAsync();
+                    stdout = await process.StandardOutput.ReadToEndAsync();
+                    List<string> javas = stdout.Split(Environment.NewLine.ToCharArray()).ToList();
+                    foreach (var java in javas)
+                    {
+                        Process jcheck = new Process();
+                        jcheck.StartInfo.FileName = "java";
+                        jcheck.StartInfo.Arguments = "-fullversion";
+                        jcheck.StartInfo.UseShellExecute = false;
+                        jcheck.StartInfo.RedirectStandardError = true;
+                        jcheck.Start();
+                        await jcheck.WaitForExitAsync();
+                        stdout = await process.StandardError.ReadToEndAsync();
+                        int javaver = int.Parse(stdout.Split('\"')[1].Split('.')[0]);
+                        jcheck.Dispose();
+                        if (javaver >= 11)
+                        {
+                            ParentPanel.IsEnabled = false;
+                            _config.JavaPath = java;
+                            break;
+                        }
+                        var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                        {
+                            ContentMessage = Lang.Resources.JavaFoundWrongVerWin + $" ({MainWindow.ConfigFile}), (Java-Execs: {string.Join(",",javas)})",
+                            ButtonDefinitions = new List<ButtonDefinition>
+                            {
+                                new() {Name = "Ok"},
+                            },
+                            Icon = MsBox.Avalonia.Enums.Icon.Error
+                        });
+                        await box.ShowAsPopupAsync(this);
+                        ParentPanel.IsEnabled = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+                    {
+                        ContentMessage = String.Format(Lang.Resources.WindowsJavaPanic,stdout,ex.Message),
+                        ButtonDefinitions = new List<ButtonDefinition>
+                        {
+                            new() { Name = "Ok" },
+                        },
+                        Icon = MsBox.Avalonia.Enums.Icon.Warning
+                    });
+                    await box.ShowAsPopupAsync(this);
+                    ParentPanel.IsEnabled = false;
+                }
+            }
+        }
     }
     async private void DwnldBtn_OnClick(object? sender, RoutedEventArgs e)
     {
+        PathBox.IsReadOnly = true;
         DwnldBar.IsVisible = true;
         DwnldBar.ShowProgressText = true; 
         await DownloadAsyncWithProgress("https://github.com/EgonOlsen71/basicv2/archive/refs/heads/master.zip",Path.Join(MainWindow.ConfigFolder,"mospeed.zip"),DwnldBar);
@@ -106,7 +258,7 @@ public partial class SetupWindow : Window
         PathBox.Text = Path.Join(MainWindow.ConfigFolder, "mospeed","dist");
         var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
         {
-            ContentMessage = Lang.Resources.MSDownloadSuccess + $" {MainWindow.ConfigFolder}/mospeed",
+            ContentMessage = Lang.Resources.MSDownloadSuccess + $" {Path.Join(MainWindow.ConfigFolder,"mospeed")}",
             ButtonDefinitions = new List<ButtonDefinition>
             {
                 new ButtonDefinition { Name = "Ok" }
