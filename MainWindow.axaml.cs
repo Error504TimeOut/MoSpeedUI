@@ -61,40 +61,16 @@ public partial class MainWindow : Window
             {
                 Directory.CreateDirectory(ConfigFolder);
                 SetupRoutine(true);
+                ReadConfig();
             }
             else if (!File.Exists(ConfigFile))
             {
                 SetupRoutine(true);
+                ReadConfig();
             }
             else
             {
-                try
-                {
-                    XmlSerializer ser = new XmlSerializer(typeof(Configuration));
-                    StreamReader r = new StreamReader(ConfigFile);
-                    AppConfiguration = (Configuration)ser.Deserialize(r)!;
-                    r.Close();
-                    foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(AppConfiguration))
-                    {
-                        string name = descriptor.Name;
-                        object value = descriptor.GetValue(AppConfiguration);
-                        Console.WriteLine("{0}={1}", name, value);
-                    }
-                }
-                catch
-                {
-                    var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
-                    {
-                        ContentMessage = Lang.Resources.ConfigReadError,
-                        ButtonDefinitions = new List<ButtonDefinition>
-                        {
-                            new ButtonDefinition { Name = "Ok" }
-                        },
-                        Icon = MsBox.Avalonia.Enums.Icon.Success
-                    });
-                    box.ShowAsPopupAsync(this);
-                    SetupRoutine(true);
-                }
+                ReadConfig();
             }
         };
         DragBox.Cursor = new Cursor(StandardCursorType.Hand);
@@ -158,6 +134,36 @@ public partial class MainWindow : Window
         PlatformSelect.SelectedIndex = 0;
     }
 
+    private void ReadConfig()
+    {
+        try
+        {
+            XmlSerializer ser = new XmlSerializer(typeof(Configuration));
+            StreamReader r = new StreamReader(ConfigFile);
+            AppConfiguration = (Configuration)ser.Deserialize(r)!;
+            r.Close();
+            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(AppConfiguration))
+            {
+                string name = descriptor.Name;
+                object value = descriptor.GetValue(AppConfiguration);
+                Console.WriteLine("{0}={1}", name, value);
+            }
+        }
+        catch
+        {
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = Lang.Resources.ConfigReadError,
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new ButtonDefinition { Name = "Ok" }
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Success
+            });
+            box.ShowAsPopupAsync(this);
+            SetupRoutine(true);
+        }
+    }
     private void RefreshFileList()
     {
         FileListPanel.Children.Clear();
