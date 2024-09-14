@@ -216,10 +216,10 @@
         <value>Abbrechen</value>
     </data>
     <data name="JavaGenericError" xml:space="preserve">
-        <value>Etwas ist bei dem Versuch auf Java zu überprüfen schiefgegangen: {0}. Jedoch, da Java ja gefunden wurde, kannst du diesen Fehler Ignorieren und überschreiben. Jegliche Fehler im Zusammenhang mit dem überprüfen auf Java werden dann ignoriert. Mache dies nur, wenn du dir sicher bist, dass du mindestens Java 11 hast.</value>
+        <value>Etwas ist bei dem Versuch auf Java zu überprüfen schiefgegangen: {0}. Jedoch, da Java ja gefunden wurde, kannst du diesen Fehler Ignorieren und überschreiben. Jegliche Fehler im Zusammenhang mit dem überprüfen auf Java werden dann ignoriert. Mache dies nur, wenn du dir sicher bist, dass du mindestens Java 11 hast. (stderr war {1})</value>
     </data>
     <data name="JavaWrongVersion" xml:space="preserve">
-        <value>{0}. Wenn du dir sicher bist, dass du Java 11 oder höher installiert hast und dies die Standardversion beim Aufruf des 'java'-Befehls ist, drücke 'Akzeptieren'. Drücke 'Ignorieren', wenn dies in Zukunft nicht beachtet werden soll.</value>
+        <value>{0}. Wenn du dir sicher bist, dass du Java 11 oder höher installiert hast und dies die Standardversion beim Aufruf des 'java'-Befehls ist, drücke 'Akzeptieren' (Ausgabe war {1})</value>
     </data>
     <data name="Compiling" xml:space="preserve">
         <value>Kompilieren...</value>
@@ -252,7 +252,7 @@
         <value>Über</value>
     </data>
     <data name="LicenseNote" xml:space="preserve">
-        <value>Dieses Programm &amp; das GUI-Framework fallen unter die MIT-Lizenz. Du kannst sie im Kasten hierunter sehen.</value>
+        <value>Dieses Programm &amp; das GUI-Framework fallen unter die MIT-Lizenz. Andere Lizenzen findest du ebenfalls hier. Du kannst sie im Kasten hierunter sehen.</value>
     </data>
     <data name="OpenGit" xml:space="preserve">
         <value>GitHub-Repository öffnen</value>
@@ -283,5 +283,14 @@
     </data>
     <data name="CompileJavaError" xml:space="preserve">
         <value>Oh nein, ein Fehler ist aufgetreten :(</value>
+    </data>
+    <data name="FindingJava" xml:space="preserve">
+        <value>Finde Java...</value>
+    </data>
+    <data name="WindowsJavaPanic" xml:space="preserve">
+        <value>Irgendwas ist sehr schiefgelaufen. Es gibt keine Ausweichoptionen mehr. Es scheint, als müsstest du die Konfiguration selbst erstellen. Eine Vorlage findest du in der GitHub-Repo zu diesem Projekt. Sorry :( (Ausgabe war: {0}, Fehler ist: {1})</value>
+    </data>
+    <data name="JavaFoundWrongVerWin" xml:space="preserve">
+        <value>Obwohl Java Installationen gefunden wurden, scheint keiner dieser die benötigte Version zu haben (&gt;= 11). Das Programm wird auf 'java' zurückfallen und die Java-Executable verwenden, welche das System unter diesem Namen bereitstellt. Es ist wahrscheinlich, dass dies beim Kompilieren fehlschlagen wird. Bitte passe &lt;javapath&gt; in der Konfigurationsdatei an.</value>
     </data>
 </root>

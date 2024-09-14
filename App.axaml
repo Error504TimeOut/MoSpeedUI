@@ -4,7 +4,13 @@
              RequestedThemeVariant="Light">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-    <Application.Styles>
-        <FluentTheme />
-    </Application.Styles>
+     <Application.Resources>
+         <FontFamily x:Key="SuseFont">avares://MoSpeedUI/Assets/Fonts#SUSE</FontFamily>
+     </Application.Resources>
+     <Application.Styles>
+         <FluentTheme />
+         <Style Selector="ContentPresenter">
+             <Setter Property="FontFamily" Value="{StaticResource SuseFont}" />
+         </Style>
+     </Application.Styles>
 </Application>

@@ -19,7 +19,7 @@ namespace MoSpeedUI;
 
 public partial class CompilerWindow : Window
 {
-    private CancellationTokenSource _cancelT = new CancellationTokenSource();
+    private CancellationTokenSource _cancelT = new();
     public CompilerWindow()
     {
         InitializeComponent();
@@ -51,7 +51,7 @@ public partial class CompilerWindow : Window
         bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         Process mospeed = new();
         mospeed.StartInfo.WorkingDirectory = MainWindow.AppConfiguration.MoSpeedPath;
-        mospeed.StartInfo.FileName = "java";
+        mospeed.StartInfo.FileName = MainWindow.AppConfiguration.JavaPath;
         mospeed.StartInfo.UseShellExecute = false;
         mospeed.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         if (isWindows)

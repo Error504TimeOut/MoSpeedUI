@@ -590,5 +590,23 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("CompileJavaError", resourceCulture);
             }
         }
+        
+        public static string FindingJava {
+            get {
+                return ResourceManager.GetString("FindingJava", resourceCulture);
+            }
+        }
+        
+        public static string WindowsJavaPanic {
+            get {
+                return ResourceManager.GetString("WindowsJavaPanic", resourceCulture);
+            }
+        }
+        
+        public static string JavaFoundWrongVerWin {
+            get {
+                return ResourceManager.GetString("JavaFoundWrongVerWin", resourceCulture);
+            }
+        }
     }
 }
