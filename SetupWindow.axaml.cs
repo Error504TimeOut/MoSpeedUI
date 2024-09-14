@@ -199,7 +199,7 @@ public partial class SetupWindow : Window
                     foreach (var java in javas)
                     {
                         Process jcheck = new Process();
-                        jcheck.StartInfo.FileName = "java";
+                        jcheck.StartInfo.FileName = java;
                         jcheck.StartInfo.Arguments = "-fullversion";
                         jcheck.StartInfo.UseShellExecute = false;
                         jcheck.StartInfo.RedirectStandardError = true;
