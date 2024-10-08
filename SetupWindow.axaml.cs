@@ -299,7 +299,7 @@ public partial class SetupWindow : Window
                 if (!canReportProgress) continue;
                 progress.ShowProgressText = true;
                 progress.Value = percentage;
-                progress.ProgressTextFormat = $"{percentage}%"; }
+                progress.ProgressTextFormat = $"Download... ({percentage})%"; }
         }
         catch (Exception e)
         {
