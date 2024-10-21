@@ -16,11 +16,13 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using Avalonia.VisualTree;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Dto;
 using MsBox.Avalonia.Models;
+using SkiaSharp;
 
 namespace MoSpeedUI;
 
@@ -55,17 +57,18 @@ public partial class MainWindow : Window
             ControlPanel.MaxWidth = (int)(e.ClientSize.Width * 0.75);
             ControlPanel.Width = ControlPanel.MaxWidth;
         };
-        this.Opened += (sender, args) =>
+        this.Opened += async (sender, args) =>
         {
             if (!Directory.Exists(ConfigFolder))
             {
                 Directory.CreateDirectory(ConfigFolder);
-                SetupRoutine(true);
+                await SetupRoutine();
                 ReadConfig();
+                return;
             }
-            else if (!File.Exists(ConfigFile))
+            if (!File.Exists(ConfigFile))
             {
-                SetupRoutine(true);
+                await SetupRoutine(true);
                 ReadConfig();
             }
             else
@@ -131,6 +134,25 @@ public partial class MainWindow : Window
             }
         };
         AboutLink.Cursor = new Cursor(StandardCursorType.Hand);
+        if (AppConfiguration.LogoDecoration)
+        {
+            DateTime dt = DateTime.Today;
+            if (dt.Month == 6)
+            {
+                MoSpeedLogo.Source =
+                    new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed_pride.png")));
+            }
+            else if (dt.Month == 12)
+            {
+                MoSpeedLogo.Source =
+                    new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed_christmas.png")));
+            }
+            else if (dt.Month == 10 && Enumerable.Range(20, 31).Contains(dt.Day))
+            {
+                MoSpeedLogo.Source =
+                    new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed_halloween.png")));
+            }
+        }
         PlatformSelect.SelectedIndex = 0;
     }
 
@@ -138,6 +160,8 @@ public partial class MainWindow : Window
     {
         try
         {
+            Configuration propConfig = new();
+            bool redoConfig = false;
             XmlSerializer ser = new XmlSerializer(typeof(Configuration));
             StreamReader r = new StreamReader(ConfigFile);
             AppConfiguration = (Configuration)ser.Deserialize(r)!;
@@ -145,15 +169,25 @@ public partial class MainWindow : Window
             foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(AppConfiguration))
             {
                 string name = descriptor.Name;
-                object value = descriptor.GetValue(AppConfiguration);
+                object? value = descriptor.GetValue(AppConfiguration);
                 Console.WriteLine("{0}={1}", name, value);
+                if (Equals(value, descriptor.GetValue(propConfig)))
+                {
+                    Console.WriteLine("{0} not configured, will be saved with default value {1}", name, value);
+                    redoConfig = true;
+                }
             }
+            if (redoConfig)
+            {
+                SetupWindow.RegenerateConfig(AppConfiguration);
+            } 
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine(e + "//"+e.Message);
             var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
             {
-                ContentMessage = Lang.Resources.ConfigReadError,
+                ContentMessage = String.Format(Lang.Resources.ConfigReadError, ConfigFolder, e.Message),
                 ButtonDefinitions = new List<ButtonDefinition>
                 {
                     new ButtonDefinition { Name = "Ok" }
@@ -500,10 +534,10 @@ public partial class MainWindow : Window
         }
         return String.Join(",",memholes);
     }
-    private void SetupRoutine(bool restart = false)
+    private async Task SetupRoutine(bool restart = false)
     {
         SetupWindow setupWindow = new(restart);
-        setupWindow.ShowDialog(this);
+        await setupWindow.ShowDialog(this);
     }
 
     private void AdvSettings_OnClick(object? sender, RoutedEventArgs e)

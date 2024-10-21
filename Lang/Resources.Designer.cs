@@ -549,9 +549,9 @@ namespace MoSpeedUI.Lang {
             }
         }
         
-        public static string RestartSetup {
+        public static string UpdateBtn {
             get {
-                return ResourceManager.GetString("RestartSetup", resourceCulture);
+                return ResourceManager.GetString("UpdateBtn", resourceCulture);
             }
         }
         

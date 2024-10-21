@@ -263,8 +263,8 @@
     <data name="CompileCancel" xml:space="preserve">
         <value>Kompilieren abgebrochen</value>
     </data>
-    <data name="RestartSetup" xml:space="preserve">
-        <value>Setup neustarten (MoSpeed updaten)</value>
+    <data name="UpdateBtn" xml:space="preserve">
+        <value>Update MoSpeed (überschreibt aktuell ausgewähltes MoSpeed)</value>
     </data>
     <data name="ConfirmReset" xml:space="preserve">
         <value>Wenn du updatest, wird der Inhalt von '{0}' gelöscht. Danach wird der Setup-Dialog erscheinen und du kannst eine neue Setup-Option auswählen. Möchtest du fortfahren?</value>
@@ -273,7 +273,7 @@
         <value>Ja</value>
     </data>
     <data name="ConfigReadError" xml:space="preserve">
-        <value>Es gab einen Fehler beim lesen der Konfigurationsdatei. SObald du dieses Pop-Up schließt, wird alles in {0} gelöscht und der Einrichtungsdialog wird erscheinen.</value>
+        <value>Es gab einen Fehler beim lesen der Konfigurationsdatei. Sobald du dieses Pop-Up schließt, wird alles in {0} gelöscht und der Einrichtungsdialog wird erscheinen. ({1})</value>
     </data>
     <data name="Ignore" xml:space="preserve">
         <value>Ignorieren</value>

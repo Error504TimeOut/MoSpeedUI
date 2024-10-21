@@ -12,6 +12,6 @@
         <TextBox x:Name="AdvBox" Margin="0,8,0,0" Watermark="{x:Static lang:Resources.AdvWatermark}"/>
         <Button Margin="0,8,0,0" Content="{x:Static lang:Resources.Apply}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="Button_OnClick"/>
         <Button Margin="0,8,0,0" Content="{x:Static lang:Resources.OpenParameterWiki}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="WikiBtn_OnClick"/>
-        <Button Margin="0,4,0,0" Content="{x:Static lang:Resources.RestartSetup}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="UpdateBtn_OnClick"/>
+        <Button x:Name="UpdateBtn" Margin="0,4,0,0" Content="{x:Static lang:Resources.UpdateBtn}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="UpdateBtn_OnClick"/>
     </StackPanel>
 </Window>

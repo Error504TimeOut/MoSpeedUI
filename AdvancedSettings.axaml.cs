@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Net.Http;
 using System.Runtime.InteropServices.JavaScript;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MsBox.Avalonia;
@@ -42,21 +46,71 @@ public partial class AdvancedSettings : Window
 
     private async void UpdateBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+        UpdateBtn.IsEnabled = false;
+        string tmpDir = Path.Join(Path.GetTempPath(), Path.GetRandomFileName());
+        string basePath = MainWindow.AppConfiguration.MoSpeedPath.Replace("\\dist", "\\").Replace("/dist", "/");
+        Directory.CreateDirectory(tmpDir);
+        string outputPath = Path.Join(tmpDir, "mospeed.zip");
+        try
         {
-            ContentMessage = String.Format(Lang.Resources.ConfirmReset, MainWindow.ConfigFolder),
+            using var client = new HttpClient();
+            using var response =
+                await client.GetAsync("https://github.com/EgonOlsen71/basicv2/archive/refs/heads/master.zip",
+                    HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+            await using var contentStream = await response.Content.ReadAsStreamAsync();
+            await using var fileStream =
+                new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+            var buffer = new byte[8192];
+            long totalBytesRead = 0;
+            int bytesRead;
+            while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            {
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead));
+                totalBytesRead += bytesRead;
+            }
+            fileStream.Close();
+            await Task.Run(() =>
+            {
+                ZipFile.ExtractToDirectory(Path.Join(tmpDir, "mospeed.zip"),
+                    tmpDir, true);
+            });
+            try
+            {
+                Directory.Delete(basePath, true);   
+            }
+            catch{}
+            Shared.CopyFilesRecursively(Path.Join(tmpDir, "basicv2-master"),
+                basePath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex + "//" + ex.Message);
+            var box = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+            {
+                ContentMessage = Lang.Resources.MSDownloadError + $" {ex.Message}",
+                ButtonDefinitions = new List<ButtonDefinition>
+                {
+                    new ButtonDefinition { Name = "Ok" }
+                },
+                Icon = MsBox.Avalonia.Enums.Icon.Error
+            });
+            await box.ShowAsPopupAsync(this);
+            return;
+        }
+        finally
+        {
+            UpdateBtn.IsEnabled = true;
+        }
+        var sBox = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
+        {
+            ContentMessage = Lang.Resources.MSDownloadSuccess + $" {MainWindow.AppConfiguration.MoSpeedPath}",
             ButtonDefinitions = new List<ButtonDefinition>
             {
-                new ButtonDefinition {Name = Lang.Resources.Abort, IsCancel = true},
-                new ButtonDefinition { Name = Lang.Resources.Yes }
+                new ButtonDefinition { Name = "Ok" }
             },
-            Icon = MsBox.Avalonia.Enums.Icon.Question
+            Icon = MsBox.Avalonia.Enums.Icon.Success
         });
-        var res = await box.ShowAsPopupAsync(this);
-        if (res == Lang.Resources.Yes)
-        {
-            SetupWindow sw = new SetupWindow(true);
-            sw.ShowDialog(this);
-        }
+        await sBox.ShowAsPopupAsync(this);
     }
 }
