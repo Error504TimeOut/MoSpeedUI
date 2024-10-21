@@ -608,5 +608,11 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("JavaFoundWrongVerWin", resourceCulture);
             }
         }
+        
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
     }
 }

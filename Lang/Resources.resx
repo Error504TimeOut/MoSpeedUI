@@ -151,7 +151,7 @@
         <value>Compile!</value>
     </data>
     <data name="Advanced" xml:space="preserve">
-        <value>Advanced Settings</value>
+        <value>Advanced Compile Settings</value>
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Welcome!</value>
@@ -299,5 +299,8 @@
     </data>
     <data name="JavaFoundWrongVerWin" xml:space="preserve">
         <value>While there were java installations found, they don't quite seem to fit the needed version (&gt;= 11). The Configuration will call 'java' and use the java executable that the system provides under this name. This will likely fail. Please change the &lt;javapath&gt; parameter in the config file to a suitable java installation.</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>App Setttings</value>
     </data>
 </root>

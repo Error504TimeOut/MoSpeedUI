@@ -75,6 +75,8 @@ public partial class MainWindow : Window
             {
                 ReadConfig();
             }
+
+            ApplyConfig();
         };
         DragBox.Cursor = new Cursor(StandardCursorType.Hand);
         DragDrop.SetAllowDrop(this, true);
@@ -134,6 +136,11 @@ public partial class MainWindow : Window
             }
         };
         AboutLink.Cursor = new Cursor(StandardCursorType.Hand);
+        PlatformSelect.SelectedIndex = 0;
+    }
+
+    private void ApplyConfig()
+    {
         if (AppConfiguration.LogoDecoration)
         {
             DateTime dt = DateTime.Today;
@@ -153,9 +160,7 @@ public partial class MainWindow : Window
                     new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed_halloween.png")));
             }
         }
-        PlatformSelect.SelectedIndex = 0;
     }
-
     private void ReadConfig()
     {
         try
@@ -550,5 +555,9 @@ public partial class MainWindow : Window
     {
         AboutWindow aW = new();
         aW.ShowDialog(this);
+    }
+
+    private void SettingsLink_OnPointerPressed(object? sender, PointerPressedEventArgs e)
+    {
     }
 }

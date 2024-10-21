@@ -127,3 +127,9 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+---
+
+The themed logos use the following icons
+https://www.flaticon.com/free-icons/christmas - Christmas icons created by Vectors Market - Flaticon
+https://www.flaticon.com/free-icons/pumpkin - Pumpkin icons created by Vectors Market - Flaticon

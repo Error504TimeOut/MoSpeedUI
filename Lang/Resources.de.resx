@@ -144,7 +144,7 @@
         <value>Kompilieren!</value>
     </data>
     <data name="Advanced" xml:space="preserve">
-        <value>Erweiterte Einstellungen</value>
+        <value>Erweiterte Kompiliereinstellungen</value>
     </data>
     <data name="Welcome" xml:space="preserve">
         <value>Willkommen!</value>
@@ -292,5 +292,8 @@
     </data>
     <data name="JavaFoundWrongVerWin" xml:space="preserve">
         <value>Obwohl Java Installationen gefunden wurden, scheint keiner dieser die benötigte Version zu haben (&gt;= 11). Das Programm wird auf 'java' zurückfallen und die Java-Executable verwenden, welche das System unter diesem Namen bereitstellt. Es ist wahrscheinlich, dass dies beim Kompilieren fehlschlagen wird. Bitte passe &lt;javapath&gt; in der Konfigurationsdatei an.</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>App Einstellungen</value>
     </data>
 </root>
