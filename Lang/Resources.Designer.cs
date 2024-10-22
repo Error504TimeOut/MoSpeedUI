@@ -614,5 +614,35 @@ namespace MoSpeedUI.Lang {
                 return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
+        
+        public static string MSPathSetting {
+            get {
+                return ResourceManager.GetString("MSPathSetting", resourceCulture);
+            }
+        }
+        
+        public static string SettingsNoCheck {
+            get {
+                return ResourceManager.GetString("SettingsNoCheck", resourceCulture);
+            }
+        }
+        
+        public static string JavaPathSetting {
+            get {
+                return ResourceManager.GetString("JavaPathSetting", resourceCulture);
+            }
+        }
+        
+        public static string LogoDecorationSetting {
+            get {
+                return ResourceManager.GetString("LogoDecorationSetting", resourceCulture);
+            }
+        }
+        
+        public static string LogoDecorationSettingTT {
+            get {
+                return ResourceManager.GetString("LogoDecorationSettingTT", resourceCulture);
+            }
+        }
     }
 }

@@ -296,4 +296,19 @@
     <data name="Settings" xml:space="preserve">
         <value>App Einstellungen</value>
     </data>
+    <data name="MSPathSetting" xml:space="preserve">
+        <value>MoSpeed Pfad</value>
+    </data>
+    <data name="SettingsNoCheck" xml:space="preserve">
+        <value>Achtung: Pfade werden nicht auf Korrektheit überprüft! Einstellungen werden nach schließen automatisch gespeichert.</value>
+    </data>
+    <data name="JavaPathSetting" xml:space="preserve">
+        <value>Java-Pfad</value>
+    </data>
+    <data name="LogoDecorationSetting" xml:space="preserve">
+        <value>Logodekorationen</value>
+    </data>
+    <data name="LogoDecorationSettingTT" xml:space="preserve">
+        <value>Wenn aktiv, passt sich das Logo für bestimmte Events an, wie zum Beispiel Weihnachten.</value>
+    </data>
 </root>

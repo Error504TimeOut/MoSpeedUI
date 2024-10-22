@@ -8,6 +8,7 @@
         <entry key="App.axaml" value="MoSpeedUI.csproj" />
         <entry key="CompilerWindow.axaml" value="MoSpeedUI.csproj" />
         <entry key="MainWindow.axaml" value="MoSpeedUI.csproj" />
+        <entry key="SettingsDialog.axaml" value="MoSpeedUI.csproj" />
         <entry key="SetupWindow.axaml" value="MoSpeedUI.csproj" />
         <entry key="UserControl1.axaml" value="MoSpeedUI.csproj" />
       </map>

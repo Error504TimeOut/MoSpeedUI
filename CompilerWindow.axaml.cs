@@ -50,8 +50,8 @@ public partial class CompilerWindow : Window
     {
         bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         Process mospeed = new();
-        mospeed.StartInfo.WorkingDirectory = MainWindow.AppConfiguration.MoSpeedPath;
-        mospeed.StartInfo.FileName = MainWindow.AppConfiguration.JavaPath;
+        mospeed.StartInfo.WorkingDirectory = Shared.AppConfiguration.MoSpeedPath;
+        mospeed.StartInfo.FileName = Shared.AppConfiguration.JavaPath;
         mospeed.StartInfo.UseShellExecute = false;
         mospeed.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         if (isWindows)

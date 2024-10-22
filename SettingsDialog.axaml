@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MoSpeedUI.SettingsDialog"
+        xmlns:lang="clr-namespace:MoSpeedUI.Lang"
+        xmlns:moSpeedUi="clr-namespace:MoSpeedUI"
+        Title="{x:Static lang:Resources.Settings}">
+    <StackPanel Margin="8">
+        <TextBlock FontWeight="Medium" FontSize="24" Text="{x:Static lang:Resources.Settings}"/>
+        <TextBlock FontWeight="450" FontSize="12" Text="{x:Static lang:Resources.SettingsNoCheck}"/>
+        <Label Content="{x:Static lang:Resources.MSPathSetting}"/>
+        <TextBox x:Name="MSPath" Watermark="{x:Static lang:Resources.FndMSWm}"/>
+        <Label Content="{x:Static lang:Resources.JavaPathSetting}"/>
+        <TextBox x:Name="JavaPath" Watermark="java"/>
+        <CheckBox x:Name="LogoDec" Content="{x:Static lang:Resources.LogoDecorationSetting}" ToolTip.Tip="{x:Static lang:Resources.LogoDecorationSettingTT}" />
+    </StackPanel>
+</Window>

@@ -55,6 +55,7 @@ public partial class SetupWindow : Window
         StreamWriter w = new StreamWriter(MainWindow.ConfigFile);
         ser.Serialize(w,config);
         w.Close();
+        Console.WriteLine("Config regenerated and saved!");
     }
     public void GenerateConfig()
     {

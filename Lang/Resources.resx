@@ -303,4 +303,19 @@
     <data name="Settings" xml:space="preserve">
         <value>App Setttings</value>
     </data>
+    <data name="MSPathSetting" xml:space="preserve">
+        <value>MoSpeed Path</value>
+    </data>
+    <data name="SettingsNoCheck" xml:space="preserve">
+        <value>Note: Paths will not be checked for validity! Settings will be saved upon closing automatically.</value>
+    </data>
+    <data name="JavaPathSetting" xml:space="preserve">
+        <value>Java path</value>
+    </data>
+    <data name="LogoDecorationSetting" xml:space="preserve">
+        <value>Logo decorations</value>
+    </data>
+    <data name="LogoDecorationSettingTT" xml:space="preserve">
+        <value>If checked, the logo will change for special events such as Christmas.</value>
+    </data>
 </root>

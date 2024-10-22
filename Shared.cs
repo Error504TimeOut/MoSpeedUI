@@ -1,9 +1,11 @@
 using System.IO;
+using System.Reactive.Linq;
 
 namespace MoSpeedUI;
 
 public class Shared
 {
+    public static Configuration AppConfiguration = new();
     public static void CopyFilesRecursively(string sourcePath, string targetPath)
     {
         //Now Create all of the directories

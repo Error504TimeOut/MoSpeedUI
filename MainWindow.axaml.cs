@@ -38,8 +38,6 @@ public partial class MainWindow : Window
     public static readonly string ConfigFolder = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI.config");
     public static readonly string ConfigFile = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),"MoSpeedUI.config","config.xml");
     public static readonly CompileConfig CompileConfig = new();
-    public static Configuration AppConfiguration = new();
-    
     public MainWindow()
     {
         InitializeComponent();
@@ -141,7 +139,7 @@ public partial class MainWindow : Window
 
     private void ApplyConfig()
     {
-        if (AppConfiguration.LogoDecoration)
+        if (Shared.AppConfiguration.LogoDecoration)
         {
             DateTime dt = DateTime.Today;
             if (dt.Month == 6)
@@ -159,6 +157,11 @@ public partial class MainWindow : Window
                 MoSpeedLogo.Source =
                     new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed_halloween.png")));
             }
+            else
+            {
+                MoSpeedLogo.Source =
+                    new Bitmap(AssetLoader.Open(new Uri("avares://MoSpeedUI/Assets/Images/mospeed.png")));
+            }
         }
     }
     private void ReadConfig()
@@ -169,12 +172,12 @@ public partial class MainWindow : Window
             bool redoConfig = false;
             XmlSerializer ser = new XmlSerializer(typeof(Configuration));
             StreamReader r = new StreamReader(ConfigFile);
-            AppConfiguration = (Configuration)ser.Deserialize(r)!;
+            Shared.AppConfiguration = (Configuration)ser.Deserialize(r)!;
             r.Close();
-            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(AppConfiguration))
+            foreach(PropertyDescriptor descriptor in TypeDescriptor.GetProperties(Shared.AppConfiguration))
             {
                 string name = descriptor.Name;
-                object? value = descriptor.GetValue(AppConfiguration);
+                object? value = descriptor.GetValue(Shared.AppConfiguration);
                 Console.WriteLine("{0}={1}", name, value);
                 if (Equals(value, descriptor.GetValue(propConfig)))
                 {
@@ -184,7 +187,7 @@ public partial class MainWindow : Window
             }
             if (redoConfig)
             {
-                SetupWindow.RegenerateConfig(AppConfiguration);
+                SetupWindow.RegenerateConfig(Shared.AppConfiguration);
             } 
         }
         catch (Exception e)
@@ -346,7 +349,7 @@ public partial class MainWindow : Window
 
     /*private async Task<bool> CheckForJava()
     {
-        if (AppConfiguration.SkipJavaCheck)
+        if (Shared.AppConfiguration.SkipJavaCheck)
         {
             return true;
         }
@@ -404,8 +407,8 @@ public partial class MainWindow : Window
             }
             if (res == Lang.Resources.Ignore)
             {
-                AppConfiguration.SkipJavaCheck = true;
-                SetupWindow.RegenerateConfig(AppConfiguration);
+                Shared.AppConfiguration.SkipJavaCheck = true;
+                SetupWindow.RegenerateConfig(Shared.AppConfiguration);
                 return true;
             }
             return true;
@@ -425,8 +428,8 @@ public partial class MainWindow : Window
             var res = await box.ShowAsPopupAsync(this);
             if (res == Lang.Resources.Ignore)
             {
-                AppConfiguration.SkipJavaCheck = true;
-                SetupWindow.RegenerateConfig(AppConfiguration);
+                Shared.AppConfiguration.SkipJavaCheck = true;
+                SetupWindow.RegenerateConfig(Shared.AppConfiguration);
                 return true;
             }
             return false;
@@ -559,5 +562,7 @@ public partial class MainWindow : Window
 
     private void SettingsLink_OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
+        new SettingsDialog().ShowDialog(this);
+        ApplyConfig();
     }
 }

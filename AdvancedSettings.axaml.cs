@@ -48,7 +48,7 @@ public partial class AdvancedSettings : Window
     {
         UpdateBtn.IsEnabled = false;
         string tmpDir = Path.Join(Path.GetTempPath(), Path.GetRandomFileName());
-        string basePath = MainWindow.AppConfiguration.MoSpeedPath.Replace("\\dist", "\\").Replace("/dist", "/");
+        string basePath = Shared.AppConfiguration.MoSpeedPath.Replace("\\dist", "\\").Replace("/dist", "/");
         Directory.CreateDirectory(tmpDir);
         string outputPath = Path.Join(tmpDir, "mospeed.zip");
         try
@@ -104,7 +104,7 @@ public partial class AdvancedSettings : Window
         }
         var sBox = MessageBoxManager.GetMessageBoxCustom(new MessageBoxCustomParams
         {
-            ContentMessage = Lang.Resources.MSDownloadSuccess + $" {MainWindow.AppConfiguration.MoSpeedPath}",
+            ContentMessage = Lang.Resources.MSDownloadSuccess + $" {Shared.AppConfiguration.MoSpeedPath}",
             ButtonDefinitions = new List<ButtonDefinition>
             {
                 new ButtonDefinition { Name = "Ok" }
